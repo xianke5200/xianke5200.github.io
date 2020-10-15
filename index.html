@@ -217,50 +217,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-项目调试一点小结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" class="article-date">
-      <time datetime="2020-10-15T14:33:28.917Z" itemprop="datePublished">2020-10-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>  最近调试nordic项目时，遇到一个奇怪的问题，在将bootloader和应用程序烧录到板子上后，出现程序跑不起来的情况。<br>  在Nordic上有两个引脚默认是作为NFCT的天线引脚来用的，因为项目需要，这两个引脚需要作为GPIO引脚来用，因此需要配置寄存器来使能这两个引脚的GPIO功能。<img src="https://img-blog.csdnimg.cn/20190808144836552.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  <img src="https://img-blog.csdnimg.cn/20190808150916997.png" alt="在这里插入图片描述"><br>  在项目上硬件设计上，通过引脚控制一个MOS管来控制，电路电源VDD的打开和关闭，同时VDD和一个10uF电容串联接地。<br>  在没有配置NFCT两个引脚为GPIO之前，我们做了如下一些测试，首先利用示波器查看MOS管输出脚的电平，发现在MOS管开通情况下，输出脚电平只有2.6V左右，比理想的3.3V低，同时测试MOS管的控制脚电平，控制脚电平电压大概有0.9V.比正常的0V略高；出现这种情况是由于，NFCT两个引脚没有配置为GPIO脚，这两个引脚处于悬浮状态，无法输出准确的电平。<br>  在配置两个引脚为GPIO引脚后，出现板子无法正常运行的情况，这时我们在继续上述测试，发现有时候改变MOS管控制脚的电平的时候，对应的VDD电平只是瞬间变化一下，然后又会恢复到改变MOS管控制脚电平之前的状态，这就会导致其他器件IC无法正常工作；这是再测试芯片供电电平，改变MOS管控制脚电平，在示波器上发现芯片供电的电平状态会出现瞬间变为低电平的然后又变成高电平的情况；可以确定芯片在改变MOS管控制脚电平的时候出现了复位。所以就导致板子出现一直复位的情况，无法正常运行的情况。再看硬件电路，会发现在打开VDD电源的瞬间，由于VDD和电容串联，在电容的作用下，会出现很大的冲激电流，导致芯片供电的LDO进入保护状态导致复位。<br>  解决方法：板子上的i2c之前已经外接上拉电阻和VDD相连，所以在打开VDD电源之前可以先配置i2c的两个引脚为高电平，并延时一段时间，给vdd端的电容足够时间充电，来防止在打开MOS管的时候产生很大的冲激电流，导致复位。在打开电源以后，再把i2c两引脚配置为输入。</p>
-
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -731,6 +687,65 @@ Image$$RW_IRAM1$$ZI$$Length : ZI_data段的大小</code></pre>
       
           
         <p>我安装的时ubuntu14.04，长时间没启用，最近准备进入Ubuntu系统的时候就出现报错<br>unknown filesystem<br>grub rescue&gt;<br>解决方案<br>1.如果不知道自己安装的ununtu系统启动文件再那个分区，可以先查找分区<br>grub rescue&gt; ls<br>执行该命令后<br>就会出现电脑上类似如下的所有的分区列表<br>(hd0),(hd0,gpt0)…<br>2.接下来查找查找具体的Ubuntu系统所在分区<br>grub rescue&gt;ls (hd0,gpt0)<br>这样就可以每个分区的相关信息，遍历所有的分区查找到Ubuntu所在分区<br>如果Ubuntu不再该分区，就还是会出现unknown filesystem的提示<br>3.修改启动分区<br>找到ubuntu所在分区后<br>执行如下指令：<br>grub rescue&gt;set root=(hs0,gpt10)(我的Ubuntu分区实在第10个分区)<br>grub rescue&gt;set prefix=(hd0,gpt10)/boot/grub<br>grub rescue&gt;insmod normal<br>grub rescue&gt;normal<br>依次执行后就可以正常启动ubuntu系统了<br>4.修复grub<br>正常启动ubuntu后，启动命令行<br>执行如下指令<br>sudo update-rub<br>sudo grub-install/dev/sda(重建grub到第一硬盘mbr)<br>到这该问题就解决了。</p>
+
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-项目调试一点小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" class="article-date">
+      <time datetime="2019-08-08T07:42:29.000Z" itemprop="datePublished">2019-08-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/">项目调试一点小结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>  最近调试nordic项目时，遇到一个奇怪的问题，在将bootloader和应用程序烧录到板子上后，出现程序跑不起来的情况。<br>  在Nordic上有两个引脚默认是作为NFCT的天线引脚来用的，因为项目需要，这两个引脚需要作为GPIO引脚来用，因此需要配置寄存器来使能这两个引脚的GPIO功能。<img src="https://img-blog.csdnimg.cn/20190808144836552.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  <img src="https://img-blog.csdnimg.cn/20190808150916997.png" alt="在这里插入图片描述"><br>  在项目上硬件设计上，通过引脚控制一个MOS管来控制，电路电源VDD的打开和关闭，同时VDD和一个10uF电容串联接地。<br>  在没有配置NFCT两个引脚为GPIO之前，我们做了如下一些测试，首先利用示波器查看MOS管输出脚的电平，发现在MOS管开通情况下，输出脚电平只有2.6V左右，比理想的3.3V低，同时测试MOS管的控制脚电平，控制脚电平电压大概有0.9V.比正常的0V略高；出现这种情况是由于，NFCT两个引脚没有配置为GPIO脚，这两个引脚处于悬浮状态，无法输出准确的电平。<br>  在配置两个引脚为GPIO引脚后，出现板子无法正常运行的情况，这时我们在继续上述测试，发现有时候改变MOS管控制脚的电平的时候，对应的VDD电平只是瞬间变化一下，然后又会恢复到改变MOS管控制脚电平之前的状态，这就会导致其他器件IC无法正常工作；这是再测试芯片供电电平，改变MOS管控制脚电平，在示波器上发现芯片供电的电平状态会出现瞬间变为低电平的然后又变成高电平的情况；可以确定芯片在改变MOS管控制脚电平的时候出现了复位。所以就导致板子出现一直复位的情况，无法正常运行的情况。再看硬件电路，会发现在打开VDD电源的瞬间，由于VDD和电容串联，在电容的作用下，会出现很大的冲激电流，导致芯片供电的LDO进入保护状态导致复位。<br>  解决方法：板子上的i2c之前已经外接上拉电阻和VDD相连，所以在打开VDD电源之前可以先配置i2c的两个引脚为高电平，并延时一段时间，给vdd端的电容足够时间充电，来防止在打开MOS管的时候产生很大的冲激电流，导致复位。在打开电源以后，再把i2c两引脚配置为输入。</p>
 
       
       

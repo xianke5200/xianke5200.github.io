@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-10-15T09:12:02.869Z</updated>
+  <updated>2020-10-14T12:25:26.137Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,26 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://example.com/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/"/>
-    <id>http://example.com/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/</id>
-    <published>2020-10-15T14:33:28.917Z</published>
-    <updated>2020-10-15T09:12:02.869Z</updated>
-    
-    <content type="html"><![CDATA[<p>  最近调试nordic项目时，遇到一个奇怪的问题，在将bootloader和应用程序烧录到板子上后，出现程序跑不起来的情况。<br>  在Nordic上有两个引脚默认是作为NFCT的天线引脚来用的，因为项目需要，这两个引脚需要作为GPIO引脚来用，因此需要配置寄存器来使能这两个引脚的GPIO功能。<img src="https://img-blog.csdnimg.cn/20190808144836552.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  <img src="https://img-blog.csdnimg.cn/20190808150916997.png" alt="在这里插入图片描述"><br>  在项目上硬件设计上，通过引脚控制一个MOS管来控制，电路电源VDD的打开和关闭，同时VDD和一个10uF电容串联接地。<br>  在没有配置NFCT两个引脚为GPIO之前，我们做了如下一些测试，首先利用示波器查看MOS管输出脚的电平，发现在MOS管开通情况下，输出脚电平只有2.6V左右，比理想的3.3V低，同时测试MOS管的控制脚电平，控制脚电平电压大概有0.9V.比正常的0V略高；出现这种情况是由于，NFCT两个引脚没有配置为GPIO脚，这两个引脚处于悬浮状态，无法输出准确的电平。<br>  在配置两个引脚为GPIO引脚后，出现板子无法正常运行的情况，这时我们在继续上述测试，发现有时候改变MOS管控制脚的电平的时候，对应的VDD电平只是瞬间变化一下，然后又会恢复到改变MOS管控制脚电平之前的状态，这就会导致其他器件IC无法正常工作；这是再测试芯片供电电平，改变MOS管控制脚电平，在示波器上发现芯片供电的电平状态会出现瞬间变为低电平的然后又变成高电平的情况；可以确定芯片在改变MOS管控制脚电平的时候出现了复位。所以就导致板子出现一直复位的情况，无法正常运行的情况。再看硬件电路，会发现在打开VDD电源的瞬间，由于VDD和电容串联，在电容的作用下，会出现很大的冲激电流，导致芯片供电的LDO进入保护状态导致复位。<br>  解决方法：板子上的i2c之前已经外接上拉电阻和VDD相连，所以在打开VDD电源之前可以先配置i2c的两个引脚为高电平，并延时一段时间，给vdd端的电容足够时间充电，来防止在打开MOS管的时候产生很大的冲激电流，导致复位。在打开电源以后，再把i2c两引脚配置为输入。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;  最近调试nordic项目时，遇到一个奇怪的问题，在将bootloader和应用程序烧录到板子上后，出现程序跑不起来的情况。&lt;br&gt;  在Nordic上有两个引脚默认是作为NFCT的天线引脚来用的，因为项目需要，这两个引脚需要作为GPIO引脚来用，因此需要配置寄存器来使能</summary>
-      
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>Hello World</title>
@@ -184,6 +164,28 @@
       
       
     <summary type="html">&lt;p&gt;我安装的时ubuntu14.04，长时间没启用，最近准备进入Ubuntu系统的时候就出现报错&lt;br&gt;unknown filesystem&lt;br&gt;grub rescue&amp;gt;&lt;br&gt;解决方案&lt;br&gt;1.如果不知道自己安装的ununtu系统启动文件再那个分区，可以先查找分区&lt;</summary>
+      
+    
+    
+    
+    <category term="Nordic" scheme="http://example.com/categories/Nordic/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>项目调试一点小结</title>
+    <link href="http://example.com/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/"/>
+    <id>http://example.com/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/</id>
+    <published>2019-08-08T07:42:29.000Z</published>
+    <updated>2020-10-15T14:47:20.957Z</updated>
+    
+    <content type="html"><![CDATA[<p>  最近调试nordic项目时，遇到一个奇怪的问题，在将bootloader和应用程序烧录到板子上后，出现程序跑不起来的情况。<br>  在Nordic上有两个引脚默认是作为NFCT的天线引脚来用的，因为项目需要，这两个引脚需要作为GPIO引脚来用，因此需要配置寄存器来使能这两个引脚的GPIO功能。<img src="https://img-blog.csdnimg.cn/20190808144836552.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>  <img src="https://img-blog.csdnimg.cn/20190808150916997.png" alt="在这里插入图片描述"><br>  在项目上硬件设计上，通过引脚控制一个MOS管来控制，电路电源VDD的打开和关闭，同时VDD和一个10uF电容串联接地。<br>  在没有配置NFCT两个引脚为GPIO之前，我们做了如下一些测试，首先利用示波器查看MOS管输出脚的电平，发现在MOS管开通情况下，输出脚电平只有2.6V左右，比理想的3.3V低，同时测试MOS管的控制脚电平，控制脚电平电压大概有0.9V.比正常的0V略高；出现这种情况是由于，NFCT两个引脚没有配置为GPIO脚，这两个引脚处于悬浮状态，无法输出准确的电平。<br>  在配置两个引脚为GPIO引脚后，出现板子无法正常运行的情况，这时我们在继续上述测试，发现有时候改变MOS管控制脚的电平的时候，对应的VDD电平只是瞬间变化一下，然后又会恢复到改变MOS管控制脚电平之前的状态，这就会导致其他器件IC无法正常工作；这是再测试芯片供电电平，改变MOS管控制脚电平，在示波器上发现芯片供电的电平状态会出现瞬间变为低电平的然后又变成高电平的情况；可以确定芯片在改变MOS管控制脚电平的时候出现了复位。所以就导致板子出现一直复位的情况，无法正常运行的情况。再看硬件电路，会发现在打开VDD电源的瞬间，由于VDD和电容串联，在电容的作用下，会出现很大的冲激电流，导致芯片供电的LDO进入保护状态导致复位。<br>  解决方法：板子上的i2c之前已经外接上拉电阻和VDD相连，所以在打开VDD电源之前可以先配置i2c的两个引脚为高电平，并延时一段时间，给vdd端的电容足够时间充电，来防止在打开MOS管的时候产生很大的冲激电流，导致复位。在打开电源以后，再把i2c两引脚配置为输入。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;  最近调试nordic项目时，遇到一个奇怪的问题，在将bootloader和应用程序烧录到板子上后，出现程序跑不起来的情况。&lt;br&gt;  在Nordic上有两个引脚默认是作为NFCT的天线引脚来用的，因为项目需要，这两个引脚需要作为GPIO引脚来用，因此需要配置寄存器来使能</summary>
       
     
     
