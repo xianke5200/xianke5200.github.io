@@ -1,9 +1,3 @@
-/*!
- * clipboard.js v1.4.3
- * https://zenorocha.github.io/clipboard.js
- *
- * Licensed MIT © Zeno Rocha
- */
 var a_idx = 0;
 jQuery(document).ready(function($) {
     $("body").click(function(e) {
