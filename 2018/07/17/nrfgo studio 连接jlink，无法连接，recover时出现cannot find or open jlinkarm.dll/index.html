@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | xianke5200的个人博客</title>
+  <title>nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll | xianke5200的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="这几天调试jlink时，突然无法使用jlink进行程序下载，一开始觉得是jlink的固件坏了，于是各种找资源，尝试多次，最后终于在sam-bav2.15版本上成功更换jlink固件，本以为这样问题就应该解决了，没想到插在电脑上一试，问题依旧；又觉得是系统路径不对，去注册表改路径，可进注册表一看，路径与安装路径完全一致，所以此法又不通；或许是自己软件安装方式不对，于是又屁颠屁颠的卸载重装N次，提">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2020/10/14/hello-world/index.html">
+<meta property="og:title" content="nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll">
+<meta property="og:url" content="http://example.com/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/index.html">
 <meta property="og:site_name" content="xianke5200的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="这几天调试jlink时，突然无法使用jlink进行程序下载，一开始觉得是jlink的固件坏了，于是各种找资源，尝试多次，最后终于在sam-bav2.15版本上成功更换jlink固件，本以为这样问题就应该解决了，没想到插在电脑上一试，问题依旧；又觉得是系统路径不对，去注册表改路径，可进注册表一看，路径与安装路径完全一致，所以此法又不通；或许是自己软件安装方式不对，于是又屁颠屁颠的卸载重装N次，提">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-14T12:25:26.136Z">
-<meta property="article:modified_time" content="2020-10-14T12:25:26.137Z">
+<meta property="og:image" content="https://img-blog.csdn.net/20180717154141425?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-blog.csdn.net/201807171543179?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="article:published_time" content="2018-07-17T07:33:36.000Z">
+<meta property="article:modified_time" content="2020-10-15T09:49:32.610Z">
 <meta property="article:author" content="xianke5200">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180717154141425?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
   
     <link rel="alternative" href="/atom.xml" title="xianke5200的个人博客" type="application/atom+xml">
   
@@ -216,11 +219,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/10/14/hello-world/" class="article-date">
-      <time datetime="2020-10-14T12:25:26.136Z" itemprop="datePublished">2020-10-14</time>
+      <a href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/" class="article-date">
+      <time datetime="2018-07-17T07:33:36.000Z" itemprop="datePublished">2018-07-17</time>
 </a>
     </div>
   
@@ -233,7 +236,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll
     </h1>
   
 
@@ -241,6 +244,10 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E9%A9%B1%E5%8A%A8/">驱动</a>
+    </div>
+
 
         
         <div class="clearfix"></div>
@@ -250,19 +257,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <p>  这几天调试jlink时，突然无法使用jlink进行程序下载，一开始觉得是jlink的固件坏了，于是各种找资源，尝试多次，最后终于在sam-bav2.15版本上成功更换jlink固件，本以为这样问题就应该解决了，没想到插在电脑上一试，问题依旧；又觉得是系统路径不对，去注册表改路径，可进注册表一看，路径与安装路径完全一致，所以此法又不通；或许是自己软件安装方式不对，于是又屁颠屁颠的卸载重装N次，提示依旧，不见好转；<br>  正当束手无策，感慨天要亡我之际，无意之中打开安装的jlink驱动文件安装目录下的jlink.exe程序，发现该程序提示的jlink S/N号为-1，顿感此处定有异常，真是山重水复疑无路，柳暗花明又一村。<br><img src="https://img-blog.csdn.net/20180717154141425?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>  在jlink.exe下执行“exec  setsn=XXXXXXXX”命令，其中XXXXXXXX就是新的S/N号，数字随意。<br>  <img src="https://img-blog.csdn.net/201807171543179?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"><br>  成功修改后，再次进入nrfgo studio，成功识别。<br>  为了解决这个问题，还是建议，先重新刷一下固件，然后再修改序列号。</p>
 
       
       
@@ -318,13 +313,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2020/10/14/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/">nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll</a></p>
         <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
-        <p><span>发布时间:</span>2020年10月14日 - 20时25分</p>
-        <p><span>最后更新:</span>2020年10月14日 - 20时25分</p>
+        <p><span>发布时间:</span>2018年07月17日 - 15时33分</p>
+        <p><span>最后更新:</span>2020年10月15日 - 17时49分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/10/14/hello-world/" title="Hello World">http://example.com/2020/10/14/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://example.com/2020/10/14/hello-world/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/" title="nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll">http://example.com/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -337,18 +332,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          (no title)
+          emwin从外部flash中读取bmp图片显示
         
       </div>
     </a>
   
   
-    <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python用PIL获取图片信息</div>
+    <a href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">蓝牙基带与链路控制器协议</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -359,7 +354,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -406,34 +401,17 @@
 
 
 
-    
-        <div id="gitments"></div>
-<script src="/js/gitment.browser.js"></script>
-<script>
-    var gitment = new Gitment({
-      id: window.location.pathname,
-      owner: 'xianke5200',
-      repo: 'xianke5200.github.io',
-      oauth: {
-        client_id: '',
-        client_secret: '',
-      },
-    })
-    gitment.render('gitments')
-</script>
-    
-
 
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" title="上一篇: ">
+            <a href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" title="上一篇: emwin从外部flash中读取bmp图片显示">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" title="下一篇: Python用PIL获取图片信息">
+            <a href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/" title="下一篇: 蓝牙基带与链路控制器协议">
                 <i class="fa fa-angle-right"></i>
             </a>
         

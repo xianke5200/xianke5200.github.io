@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | xianke5200的个人博客</title>
+  <title>emwin从外部flash中读取bmp图片显示 | xianke5200的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="在emwin中有提供了一个从外部读取图片数据进行显示的函数，如下：而且提供了官方例程，不过官方历程中从外部读取是从外部文件系统中进行读取的bmp图片进行显示，官方例程如下 &#x2F;* ********************************************************************************************************* * 函 数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2020/10/14/hello-world/index.html">
+<meta property="og:title" content="emwin从外部flash中读取bmp图片显示">
+<meta property="og:url" content="http://example.com/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/index.html">
 <meta property="og:site_name" content="xianke5200的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="在emwin中有提供了一个从外部读取图片数据进行显示的函数，如下：而且提供了官方例程，不过官方历程中从外部读取是从外部文件系统中进行读取的bmp图片进行显示，官方例程如下 &#x2F;* ********************************************************************************************************* * 函 数">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-14T12:25:26.136Z">
-<meta property="article:modified_time" content="2020-10-14T12:25:26.137Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20181108145438825.png">
+<meta property="article:published_time" content="2018-11-08T07:15:17.000Z">
+<meta property="article:modified_time" content="2020-10-15T09:44:54.105Z">
 <meta property="article:author" content="xianke5200">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181108145438825.png">
   
     <link rel="alternative" href="/atom.xml" title="xianke5200的个人博客" type="application/atom+xml">
   
@@ -216,11 +218,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-emwin从外部flash中读取bmp图片显示" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/10/14/hello-world/" class="article-date">
-      <time datetime="2020-10-14T12:25:26.136Z" itemprop="datePublished">2020-10-14</time>
+      <a href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" class="article-date">
+      <time datetime="2018-11-08T07:15:17.000Z" itemprop="datePublished">2018-11-08</time>
 </a>
     </div>
   
@@ -233,7 +235,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      emwin从外部flash中读取bmp图片显示
     </h1>
   
 
@@ -241,6 +243,10 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/GUI/">GUI</a>
+    </div>
+
 
         
         <div class="clearfix"></div>
@@ -250,19 +256,147 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p>在emwin中有提供了一个从外部读取图片数据进行显示的函数，如下：<br><img src="https://img-blog.csdnimg.cn/20181108145438825.png" alt="在这里插入图片描述"><br>而且提供了官方例程，不过官方历程中从外部读取是从外部文件系统中进行读取的bmp图片进行显示，官方例程如下</p>
+<pre><code>/*
+*********************************************************************************************************
+* 函 数 名: _GetData
+* 功能说明: 被函数 GUI_BMP_DrawEx 调用
+* 形 参： p FIL 类型数据
+* NumBytesReq 请求读取的字节数
+* ppData 数据指针
+* Off 如果 Off = 1，那么将重新从起始位置读取
+* 返 回 值: 返回读取的字节数
+*********************************************************************************************************
+*/
+int _GetData(void * p, const U8 ** ppData, unsigned NumBytesReq, U32 Off)
+&#123;
+static int FileAddress = 0;
+UINT NumBytesRead;
+FIL *PicFile;
+PicFile = (FIL *)p;
+/*
+* 检测缓存大小
+*/
+if (NumBytesReq &gt; sizeof(acBuffer)) &#123;
+NumBytesReq = sizeof(acBuffer);
+&#125;
+/*
+* 设置读取位置
+*/
+if(Off == 1) FileAddress = 0;
+else FileAddress = Off;
+result =f_lseek(PicFile, FileAddress);
+/*
+* 读取数据到缓存
+*/
+result = f_read(PicFile, acBuffer, NumBytesReq, &amp;NumBytesRead);
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+/*
+* 让指针 ppData 指向读取的数据
+*/
+*ppData = (const U8 *)acBuffer;
+/*
+* 返回读取的字节数
+*/
+return NumBytesRead;
+&#125;
+/*
+*********************************************************************************************************
+* 函 数 名: _ShowBMP1
+* 功能说明: 显示 BMP 图片
+* 形 参: sFilename 要读取的文件名
+* 返 回 值: 无
+*********************************************************************************************************
+*/
+void _ShowBMP1(const char *sFilename)
+&#123;
+/* 打开文件 */
+result = f_open(&amp;file, sFilename, FA_OPEN_EXISTING | FA_READ | FA_OPEN_ALWAYS);
+if (result != FR_OK)
+&#123;
+return;
+&#125;
+/* 绘制 BMP 图片 */
+GUI_BMP_DrawEx(_GetData, &amp;file, 0, 0);
+/* 关闭文件 */
+f_close(&amp;file);
+&#125;</code></pre>
+<p>关键部分就是从回调函数中读取bmp图片的数据。例程中时从外部文件按系统中进行读取，如果我们想从外部flash中直接读取的话，只需要在回调函数中对读取bmp数据部分进行简单修改就可以了</p>
+<pre><code>/*
+*********************************************************************************************************
+* 函 数 名: _GetData
+* 功能说明: 被函数 GUI_BMP_DrawEx 调用
+* 形 参： p 图片参数
+* NumBytesReq 请求读取的字节数
+* ppData 数据指针
+* Off 如果 Off = 1，那么将重新从起始位置读取
+* 返 回 值: 返回读取的字节数
+*********************************************************************************************************
+*/
+int _GetData(void * p, const U8 ** ppData, unsigned NumBytesReq, U32 Off)
+&#123;
+image_params_t *p_flash_pic= (image_params_t *)p;
+if ((Off + NumBytesReq) &gt; p_flash_pic-&gt;size)
+&#123;
+    NRF_LOG_ERROR(&quot;Params error 0&quot;);
+    NumBytesReq= p_flash_pic-&gt;size - Off;
+&#125;
+/*
+* 检测缓存大小
+*/
+if (NumBytesReq &gt; sizeof(p_pic_buf)) &#123;
+NumBytesReq = sizeof(p_pic_buf);
+&#125;
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+/*
+* 设置读取位置
+*/
+if(Off == 1) Off = 0;
+else Off = Off;
+//~~result =f_lseek(PicFile, FileAddress);~~ 
+/*
+*** 读取数据到缓存
+*/
+//~~result = f_read(PicFile, acBuffer, NumBytesReq, &amp;NumBytesRead);~~ 
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+/*
+*GT24_FREE_FLASH_PIC_START_ADDR是flash中划分来存储bmp图片的起始地址，p_flash_pic-&gt;address是要显示的bmp图
+*相对于GT24_FREE_FLASH_PIC_START_ADDR的偏移地址，是从回调函数中第一个参数传进来的
+*/
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+uint32_t current_addr = GT24_FREE_FLASH_PIC_START_ADDR + p_flash_pic-&gt;address + (offset==1?0:offset);
+
+ /*
+*读取函数是自己创建的通过spi从flash读取指定字节大小的函数，这个可以根据自己的实际情况来定
+*/
+
+ret = gt24_read_nbytes(p_pic_buf, current_addr, NumBytesReq);**
+
+/*
+* 让指针 ppData 指向读取的数据
+*/
+*ppData = (const U8 *)p_pic_buf;
+
+
+/*
+* 返回读取的字节数
+*/
+return NumBytesReq;
+&#125;
+/*
+*********************************************************************************************************
+* 函 数 名: _ShowBMP1
+* 功能说明: 显示 BMP 图片
+* 形 参: sFilename 要读取的文件名
+* 返 回 值: 无
+*********************************************************************************************************
+*/
+void _ShowBMP1(void)
+&#123;
+/* 绘制 BMP 图片 ,file 是传进去的flash中的图片相关的参数，可以在Getdata中的第一个形参中得到*/
+GUI_BMP_DrawEx(_GetData, &amp;file, 0, 0);
+&#125;</code></pre>
+<p>到这里，就完成了从外部flash中读取图片信息进行显示的整个过程了，除了从外部flash中读取bmp图片，还可以从外部flash中读取gif图片，也只需要将emwin提供的官方例程中的回调函数中的数据读取部分改为flash读取函数即可，同样要是想从外部flash中读取XBF字库文件，也是一样。<br>读取显示的流程：<br>1.制作图片数据bin文件，我在bin文件前面会保存每张图片的相关信息，包括图片大小，图片数据偏移量（图片在bin文件中的位置），图片名字；我用一个结构体来保存一张图片的上述数据；也就是说假如有5张图片，在bin的开始部分会保存5个包含图片信息的结构体，后面跟着的再是5张图片的完整数据（bmp头、信息头、颜色表（有的话）、图片有效数据）。<br>2.将bin文件写入flash中，方式有很多种，可以通过利用串口通过xmodem写入flash，也可以利用手机app通过蓝牙下发bin文件，写入flash中。<br>3.根据文件名遍历bin文件，每次读取一个结构体大小的数据量，直到找到相对应文件名的结构体，得到对应图片的相关信息，得到图片的名字、大小，以及偏移量（图片在bin文件中的位置），图片类型，这个结构体就是传入GUI_BMP_DrawEx函数的第二个形参，也就是getdata函数的第一个形参。<br>4.根据得到的图片相关信息，利用上述代码读取图片数据显示</p>
 
       
       
@@ -318,13 +452,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2020/10/14/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/">emwin从外部flash中读取bmp图片显示</a></p>
         <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
-        <p><span>发布时间:</span>2020年10月14日 - 20时25分</p>
-        <p><span>最后更新:</span>2020年10月14日 - 20时25分</p>
+        <p><span>发布时间:</span>2018年11月08日 - 15时15分</p>
+        <p><span>最后更新:</span>2020年10月15日 - 17时44分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/10/14/hello-world/" title="Hello World">http://example.com/2020/10/14/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://example.com/2020/10/14/hello-world/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/" title="emwin从外部flash中读取bmp图片显示">http://example.com/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -337,18 +471,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          (no title)
+          nrodic工具指令
         
       </div>
     </a>
   
   
-    <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python用PIL获取图片信息</div>
+    <a href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -359,7 +493,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -406,34 +540,17 @@
 
 
 
-    
-        <div id="gitments"></div>
-<script src="/js/gitment.browser.js"></script>
-<script>
-    var gitment = new Gitment({
-      id: window.location.pathname,
-      owner: 'xianke5200',
-      repo: 'xianke5200.github.io',
-      oauth: {
-        client_id: '',
-        client_secret: '',
-      },
-    })
-    gitment.render('gitments')
-</script>
-    
-
 
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" title="上一篇: ">
+            <a href="/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/" title="上一篇: nrodic工具指令">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" title="下一篇: Python用PIL获取图片信息">
+            <a href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/" title="下一篇: nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll">
                 <i class="fa fa-angle-right"></i>
             </a>
         

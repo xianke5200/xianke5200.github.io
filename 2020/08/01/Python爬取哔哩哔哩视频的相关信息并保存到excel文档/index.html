@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Python爬取哔哩哔哩视频的相关信息并保存到excel文档 | xianke5200的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="利用自动化测试工具selenium自动搜索视频信息，自动翻页爬取搜索到的视频相关信息。首先找到自己要爬取数据网页数据，如下整个流程如下：    1.声明浏览器对象    2.声明浏览器最长等待时间    3.创建excel文件对象    4.新建excel sheet页，并写入头部标签    5.浏览器访问网页地址    6.定位输入窗口，输入文字并回车跳转    7.切换到新标签页    8.等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬取哔哩哔哩视频的相关信息并保存到excel文档">
+<meta property="og:url" content="http://example.com/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="xianke5200的个人博客">
+<meta property="og:description" content="利用自动化测试工具selenium自动搜索视频信息，自动翻页爬取搜索到的视频相关信息。首先找到自己要爬取数据网页数据，如下整个流程如下：    1.声明浏览器对象    2.声明浏览器最长等待时间    3.创建excel文件对象    4.新建excel sheet页，并写入头部标签    5.浏览器访问网页地址    6.定位输入窗口，输入文字并回车跳转    7.切换到新标签页    8.等">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200803192538130.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2020-08-01T09:22:53.000Z">
+<meta property="article:modified_time" content="2020-10-15T09:31:28.504Z">
+<meta property="article:author" content="xianke5200">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200803192538130.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70">
+  
+    <link rel="alternative" href="/atom.xml" title="xianke5200的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<!--人体时钟背景透明-->
+	<script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script>
+
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate"></a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/Home">博客首页</a></li>
+                        
+                            <li><a href="/works">作品展示</a></li>
+                        
+                            <li><a href="/about">留言打卡</a></li>
+                        
+                            <li><a href="/FrontEndGuide">前端导航</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/xianke5200" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/python/" style="font-size: 10px;">python</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://luuman.github.io/">name</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me"></a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me"></a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/Home">博客首页</a></li>
+                
+                    <li><a href="/works">作品展示</a></li>
+                
+                    <li><a href="/about">留言打卡</a></li>
+                
+                    <li><a href="/FrontEndGuide">前端导航</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/xianke5200" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Python爬取哔哩哔哩视频的相关信息并保存到excel文档" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/" class="article-date">
+      <time datetime="2020-08-01T09:22:53.000Z" itemprop="datePublished">2020-08-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python爬取哔哩哔哩视频的相关信息并保存到excel文档
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/python3-%E7%88%AC%E8%99%AB/">python3 爬虫</a>
+    </div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>利用自动化测试工具selenium自动搜索视频信息，自动翻页爬取搜索到的视频相关信息。<br>首先找到自己要爬取数据网页数据，如下<br><img src="https://img-blog.csdnimg.cn/20200803192538130.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMzIzNTQ0,size_16,color_FFFFFF,t_70" alt="爬取的网页数据"><br>整个流程如下：<br>    1.声明浏览器对象<br>    2.声明浏览器最长等待时间<br>    3.创建excel文件对象<br>    4.新建excel sheet页，并写入头部标签<br>    5.浏览器访问网页地址<br>    6.定位输入窗口，输入文字并回车跳转<br>    7.切换到新标签页<br>    8.等待网页数据加载完成<br>    9.beautifulSoup解析网页数据<br>    10.找到要爬取的数据，并保存到excel中<br>    11.获取搜索到的最大页数<br>    12.等待下一页按钮加载完成，并点击下一页按钮切换到下一页<br>    13.重复8-10步和12步，直到所有页数爬取完毕</p>
+<ol>
+<li><p>声明浏览器对象，并设置浏览器窗口大小</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">browser = webdriver.Chrome()</span><br><span class="line"><span class="comment">#browser = webdriver.PhantomJS()</span></span><br><span class="line">browser.set_window_size(<span class="number">1400</span>, <span class="number">900</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>创建excel文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">book = xlwt.Workbook(encoding=<span class="string">&#x27;utf-8&#x27;</span>, style_compression=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">sheet = book.add_sheet(<span class="string">&#x27;蔡徐坤篮球&#x27;</span>, cell_overwrite_ok=<span class="literal">True</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&#x27;名称&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&#x27;地址&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&#x27;描述&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&#x27;观看次数&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">4</span>, <span class="string">&#x27;弹幕数&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">5</span>, <span class="string">&#x27;发布时间&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>在这里采用xlwt库对excel文件进行写入操作，xlwt库只能写入数据，无法读取数据</p>
+</li>
+<li><p>访问B站，并自动搜索，同时返回视频页数</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="string">&#x27;开始访问b站....&#x27;</span>)</span><br><span class="line">        browser.get(<span class="string">&quot;https://www.bilibili.com/&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        search = browser.find_element_by_xpath(<span class="string">&#x27;//div[@class=&quot;nav-search&quot;]/form/input&#x27;</span>)</span><br><span class="line">        search.send_keys(<span class="string">&quot;蔡徐坤 篮球&quot;</span>)</span><br><span class="line">        search.send_keys(Keys.ENTER)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 跳转到新的窗口</span></span><br><span class="line">        print(<span class="string">&#x27;跳转到新窗口&#x27;</span>)</span><br><span class="line">        all_h = browser.window_handles</span><br><span class="line">        browser.switch_to.window(all_h[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        html = browser.page_source</span><br><span class="line">        <span class="comment"># print(html)</span></span><br><span class="line">        soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">        save_to_excel(soup)</span><br><span class="line"></span><br><span class="line">        total_index = soup.find(class_=<span class="string">&#x27;page-item last&#x27;</span>).find(class_=<span class="string">&#x27;pagination-btn&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> int(total_index.text)</span><br><span class="line">    <span class="keyword">except</span> TimeoutException:</span><br><span class="line">        <span class="keyword">return</span> search()</span><br></pre></td></tr></table></figure>
+<p>3.1 打开浏览器，访问B站</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">browser.get(<span class="string">&quot;https://www.bilibili.com/&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>3.2 定位搜索框的位置，并填入要搜索的文本，并回车</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">search = browser.find_element_by_xpath(<span class="string">&#x27;//div[@class=&quot;nav-search&quot;]/form/input&#x27;</span>)</span><br><span class="line">  search.send_keys(<span class="string">&quot;蔡徐坤 篮球&quot;</span>)</span><br><span class="line">  search.send_keys(Keys.ENTER)</span><br></pre></td></tr></table></figure>
+<p>selenium可以驱动浏览器代替人工完成各种操作，查找定位要操作的节点，填充数据，模拟点击，拖拽等<br>查找单个节点可以通过如下方法：<br>find_element_by_id 【通过元素的 id 来选择】<br>例：<div id='bdy-inner'>test</div>，查找：driver.find_element_by_id(‘bdy-inner’)</p>
+<p>find_element_by_name 【通过元素的 name 来选择】<br>例：<input name="username" type="text" />，查找：driver.find_element_by_name(‘password’)</p>
+<p>find_element_by_xpath 【通过 xpath 选择】<br>例：<form id="loginForm">，查找：driver.find_element_by_xpath(“//form[@id=’loginForm’]”)</p>
+<p>find_element_by_link_text 【通过链接地址选择】<br>例：<a href="continue.html">continue</a>，查询：driver.find_element_by_link_text(‘continue’)</p>
+<p>find_element_by_partial_link_text 【通过链接的部分地址选择】<br>例：<a href="continue.html">continue</a>，查询：driver.find_element_by_link_text(‘cont’)</p>
+<p>find_element_by_tag_name 【通过元素的名称选择】<br>例：&lt; h1&gt;welcome&lt; h1&gt;，查询：driver.find_element_by_tag_name(‘h1’)</p>
+<p>find_element_by_class_name 【通过元素的 class 选择】<br>例：&lt; p class=”content”&gt;welcome to TRHX’S BLOG!&lt; /p&gt;，查询：driver.find_element_by_class_name(‘content’)</p>
+<p>find_element_by_css_selector 【通过元素的 class 选择】<br>例：&lt; div class=’bdy-inner’&gt;test&lt; /div&gt;，查询：driver.find_element_by_css_selector(‘div.bdy-inner’)</p>
+<p>find_element() 【通用方法，需要传递两个参数：查找方式 By 和值】<br>例：driver.find_element_by_id(‘inner’) 等价于 find_element(By.ID, inner)，使用时需要from selenium.webdriver.common.by import By</p>
+<p>selenium对浏览器的操作也可称之为节点交互，常用的节点交互方式有以下几种<br>    send_keys：模拟按键输入<br>    clear：清除元素的内容<br>    click：单击元素<br>    submit：提交表单</p>
+<p>3.3 完成点击操作后，搜索结果会在新标签页中呈现，这时需要切换到新标签页中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;跳转到新窗口&#x27;</span>)</span><br><span class="line">   all_h = browser.window_handles</span><br><span class="line">   browser.switch_to.window(all_h[<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+<p>3.4 获取第一页的视频相关信息，并保存到excel文档中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">html = browser.page_source</span><br><span class="line"><span class="comment"># print(html)</span></span><br><span class="line">soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">save_to_excel(soup)</span><br></pre></td></tr></table></figure>
+<p>这里采用beautifulSoup库对网页数据进行解析。<br>常用的解析器有四种,如下：<br>| 解析器 | 使用方法 |<br>|–|–|<br>| Python 标准库 | BeautifulSoup(markup, “html.parser”)     |<br>|LXML HTML 解析器|BeautifulSoup(markup, “lxml”)|<br>|LXML XML 解析器|BeautifulSoup(markup, “xml”)|<br>|html5lib|BeautifulSoup(markup, “html5lib”)|<br>3.5 返回搜索结果的页数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">total_index = soup.find(class_=<span class="string">&#x27;page-item last&#x27;</span>).find(class_=<span class="string">&#x27;pagination-btn&#x27;</span>)</span><br><span class="line"><span class="keyword">return</span> int(total_index.text)</span><br></pre></td></tr></table></figure>
+<p>这里利用beautifulSoup解析器提取名为page-item last的class节点下的pagination-btn节点文本数据，得到总的搜索页数<br>4. 点击下一页按钮，并爬取下一页视频信息保存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">WAIT = WebDriverWait(browser, <span class="number">20</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">next_page</span>(<span class="params">page_num</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="string">&#x27;获取第(%d)页数据&#x27;</span> % page_num)</span><br><span class="line">        next_btn = WAIT.until(EC.element_to_be_clickable((By.CSS_SELECTOR,</span><br><span class="line">                                                          <span class="string">&#x27;li.page-item.next &gt; button&#x27;</span>)))</span><br><span class="line">        next_btn.click()</span><br><span class="line">        get_source()</span><br><span class="line">    <span class="keyword">except</span> TimeoutException:</span><br><span class="line">        browser.refresh()</span><br><span class="line">        <span class="keyword">return</span> next_page(page_num)</span><br></pre></td></tr></table></figure>
+<p>引入 WebDriverWait 对象，指定最长等待时间，这里最长等待时间20秒，调用它的 until() 方法，传入要等待条件 expected_conditions。比如，这里传入了 element_to_be_clickable这个条件，代表节点被选中，并可以被点击的时候<br>4.1 定位下一页按钮位置，并发送点击事件切换到下一页</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;获取第(%d)页数据&#x27;</span> % page_num)</span><br><span class="line">       next_btn = WAIT.until(EC.element_to_be_clickable((By.CSS_SELECTOR,</span><br><span class="line">                                                         <span class="string">&#x27;li.page-item.next &gt; button&#x27;</span>)))</span><br><span class="line">       next_btn.click()</span><br></pre></td></tr></table></figure>
+<p>4.2 切换到下一页后，等待ul.video-list.clearfix节点出现，再获取界面数据，爬取视频信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_source</span>():</span></span><br><span class="line">    WAIT.until(EC.presence_of_element_located(</span><br><span class="line">        (By.CSS_SELECTOR, <span class="string">&#x27;ul.video-list.clearfix&#x27;</span>)))</span><br><span class="line">    <span class="comment"># browser.refresh()</span></span><br><span class="line">    html = browser.page_source</span><br><span class="line">    <span class="comment"># print(html)</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">    save_to_excel(soup)</span><br></pre></td></tr></table></figure>
+<p>5.最后，保存爬取到的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_to_excel</span>(<span class="params">soup</span>):</span></span><br><span class="line">    list = soup.find(class_=<span class="string">&#x27;video-list clearfix&#x27;</span>).find_all_next(class_=<span class="string">&#x27;info&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list:</span><br><span class="line">        item_title = item.find(<span class="string">&#x27;a&#x27;</span>).get(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line">        item_link = item.find(<span class="string">&#x27;a&#x27;</span>).get(<span class="string">&#x27;href&#x27;</span>)</span><br><span class="line">        item_dec = item.find(class_=<span class="string">&#x27;des hide&#x27;</span>).text</span><br><span class="line">        item_view = item.find(class_=<span class="string">&#x27;so-icon watch-num&#x27;</span>).text</span><br><span class="line">        item_biubiu = item.find(class_=<span class="string">&#x27;so-icon hide&#x27;</span>).text</span><br><span class="line">        item_date = item.find(class_=<span class="string">&#x27;so-icon time&#x27;</span>).text</span><br><span class="line"></span><br><span class="line">        print(<span class="string">&#x27;爬取：&#x27;</span> + item_title)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">global</span> n</span><br><span class="line"></span><br><span class="line">        sheet.write(n, <span class="number">0</span>, item_title)</span><br><span class="line">        sheet.write(n, <span class="number">1</span>, item_link)</span><br><span class="line">        sheet.write(n, <span class="number">2</span>, item_dec)</span><br><span class="line">        sheet.write(n, <span class="number">3</span>, item_view)</span><br><span class="line">        sheet.write(n, <span class="number">4</span>, item_biubiu)</span><br><span class="line">        sheet.write(n, <span class="number">5</span>, item_date)</span><br><span class="line"></span><br><span class="line">        n = n + <span class="number">1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>提取到名为视频信息节点名为video-list clearfix的class节点的所有下一级名为info的class节点信息后，在提取各个信息存入excel<br>6.完整代码如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> TimeoutException</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> xlwt</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line"><span class="comment">#browser = webdriver.PhantomJS()</span></span><br><span class="line">WAIT = WebDriverWait(browser, <span class="number">20</span>)</span><br><span class="line">browser.set_window_size(<span class="number">1400</span>, <span class="number">900</span>)</span><br><span class="line"></span><br><span class="line">book = xlwt.Workbook(encoding=<span class="string">&#x27;utf-8&#x27;</span>, style_compression=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">sheet = book.add_sheet(<span class="string">&#x27;蔡徐坤篮球&#x27;</span>, cell_overwrite_ok=<span class="literal">True</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">0</span>, <span class="string">&#x27;名称&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">1</span>, <span class="string">&#x27;地址&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">2</span>, <span class="string">&#x27;描述&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">3</span>, <span class="string">&#x27;观看次数&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">4</span>, <span class="string">&#x27;弹幕数&#x27;</span>)</span><br><span class="line">sheet.write(<span class="number">0</span>, <span class="number">5</span>, <span class="string">&#x27;发布时间&#x27;</span>)</span><br><span class="line"></span><br><span class="line">n = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">search</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="string">&#x27;开始访问b站....&#x27;</span>)</span><br><span class="line">        browser.get(<span class="string">&quot;https://www.bilibili.com/&quot;</span>)</span><br><span class="line"></span><br><span class="line">        search = browser.find_element_by_xpath(<span class="string">&#x27;//div[@class=&quot;nav-search&quot;]/form/input&#x27;</span>)</span><br><span class="line">        search.send_keys(<span class="string">&quot;蔡徐坤 篮球&quot;</span>)</span><br><span class="line">        search.send_keys(Keys.ENTER)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 跳转到新的窗口</span></span><br><span class="line">        print(<span class="string">&#x27;跳转到新窗口&#x27;</span>)</span><br><span class="line">        all_h = browser.window_handles</span><br><span class="line">        browser.switch_to.window(all_h[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        html = browser.page_source</span><br><span class="line">        <span class="comment"># print(html)</span></span><br><span class="line">        soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">        save_to_excel(soup)</span><br><span class="line"></span><br><span class="line">        total_index = soup.find(class_=<span class="string">&#x27;page-item last&#x27;</span>).find(class_=<span class="string">&#x27;pagination-btn&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> int(total_index.text)</span><br><span class="line">    <span class="keyword">except</span> TimeoutException:</span><br><span class="line">        <span class="keyword">return</span> search()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">next_page</span>(<span class="params">page_num</span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        print(<span class="string">&#x27;获取第(%d)页数据&#x27;</span> % page_num)</span><br><span class="line">        next_btn = WAIT.until(EC.element_to_be_clickable((By.CSS_SELECTOR,</span><br><span class="line">                                                          <span class="string">&#x27;li.page-item.next &gt; button&#x27;</span>)))</span><br><span class="line">        <span class="comment"># time.sleep(5)</span></span><br><span class="line">        next_btn.click()</span><br><span class="line">        get_source()</span><br><span class="line">    <span class="keyword">except</span> TimeoutException:</span><br><span class="line">        browser.refresh()</span><br><span class="line">        <span class="keyword">return</span> next_page(page_num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_to_excel</span>(<span class="params">soup</span>):</span></span><br><span class="line">    list = soup.find(class_=<span class="string">&#x27;video-list clearfix&#x27;</span>).find_all_next(class_=<span class="string">&#x27;info&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> list:</span><br><span class="line">        item_title = item.find(<span class="string">&#x27;a&#x27;</span>).get(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line">        item_link = item.find(<span class="string">&#x27;a&#x27;</span>).get(<span class="string">&#x27;href&#x27;</span>)</span><br><span class="line">        item_dec = item.find(class_=<span class="string">&#x27;des hide&#x27;</span>).text</span><br><span class="line">        item_view = item.find(class_=<span class="string">&#x27;so-icon watch-num&#x27;</span>).text</span><br><span class="line">        item_biubiu = item.find(class_=<span class="string">&#x27;so-icon hide&#x27;</span>).text</span><br><span class="line">        item_date = item.find(class_=<span class="string">&#x27;so-icon time&#x27;</span>).text</span><br><span class="line"></span><br><span class="line">        print(<span class="string">&#x27;爬取：&#x27;</span> + item_title)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">global</span> n</span><br><span class="line"></span><br><span class="line">        sheet.write(n, <span class="number">0</span>, item_title)</span><br><span class="line">        sheet.write(n, <span class="number">1</span>, item_link)</span><br><span class="line">        sheet.write(n, <span class="number">2</span>, item_dec)</span><br><span class="line">        sheet.write(n, <span class="number">3</span>, item_view)</span><br><span class="line">        sheet.write(n, <span class="number">4</span>, item_biubiu)</span><br><span class="line">        sheet.write(n, <span class="number">5</span>, item_date)</span><br><span class="line"></span><br><span class="line">        n = n + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_source</span>():</span></span><br><span class="line">    WAIT.until(EC.presence_of_element_located(</span><br><span class="line">        (By.CSS_SELECTOR, <span class="string">&#x27;ul.video-list.clearfix&#x27;</span>)))</span><br><span class="line">    <span class="comment"># browser.refresh()</span></span><br><span class="line">    html = browser.page_source</span><br><span class="line">    <span class="comment"># print(html)</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">    save_to_excel(soup)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        total = search()</span><br><span class="line">        <span class="comment"># print(total)</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, int(total)+<span class="number">1</span>):</span><br><span class="line">            next_page(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        browser.close()</span><br><span class="line">        browser.quit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br><span class="line">    book.save(<span class="string">u&#x27;蔡徐坤篮球.xls&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>最后将excel文档保存为xls格式，在有的电脑上面保存为xlsx格式时，本地打开文档出现格式错误的问题，将保存格式更改为xls可以解决该问题。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/">Python爬取哔哩哔哩视频的相关信息并保存到excel文档</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
+        <p><span>发布时间:</span>2020年08月01日 - 17时22分</p>
+        <p><span>最后更新:</span>2020年10月15日 - 17时31分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/" title="Python爬取哔哩哔哩视频的相关信息并保存到excel文档">http://example.com/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Python爬取哔哩哔哩视频的相关信息后续
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python pyqt5开发小结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/" title="上一篇: Python爬取哔哩哔哩视频的相关信息后续">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/" title="下一篇: python pyqt5开发小结">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/">项目调试一点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/">Python用PIL获取图片信息</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/">Python爬取哔哩哔哩视频的相关信息后续</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/">Python爬取哔哩哔哩视频的相关信息并保存到excel文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/">python pyqt5开发小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/">获取程序编译后链接脚本中变量</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">项目调试一点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/">提升刷屏速度，降低显示水纹效果的一点想法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">4412学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/">关于提升仿动态图显示速度的一点想法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/">软件QSPI调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/">csr8610调试小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/12/Xmodem%E5%8D%8F%E8%AE%AE/">Xmodem协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/">nrodic工具指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/">emwin从外部flash中读取bmp图片显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/">nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/">蓝牙基带与链路控制器协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/">蓝牙射频协议规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/">QT添加GPIB驱动库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/20/MT8852B%E6%B5%8B%E8%AF%95%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E7%89%B9%E6%80%A7/">MT8852B测试蓝牙射频特性</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2020 xianke5200
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+			<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+			<script>
+				var now = new Date(); 
+				function createtime() { 
+					var grt= new Date("10/14/2020 22:15:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+					now.setTime(now.getTime()+250); 
+					days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+					hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+					if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+					mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+					seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+					snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+					document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+					document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+				} 
+			setInterval("createtime()",250);
+			</script>
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+
+<!--单击显示文字-->
+<script type="text/javascript" src="/js/click_show_text.js"></script>
+
+<!--单击烟花效果-->
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/fireworks.js"></script>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | xianke5200的个人博客</title>
+  <title>xianke5200的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="xianke5200的个人博客">
-<meta property="og:url" content="http://example.com/archives/index.html">
+<meta property="og:url" content="http://example.com/page/3/index.html">
 <meta property="og:site_name" content="xianke5200的个人博客">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="xianke5200">
@@ -29,6 +29,9 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
+    
+    
+  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -40,9 +43,9 @@
           rootUrl: '/',
           fancybox: true,
           animate: true,
-          isHome: false,
+          isHome: true,
           isPost: false,
-          isArchive: true,
+          isArchive: false,
           isTag: false,
           isCategory: false,
           open_in_new: false
@@ -214,335 +217,72 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-MT8852B测试蓝牙射频特性" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2018/04/20/MT8852B%E6%B5%8B%E8%AF%95%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E7%89%B9%E6%80%A7/" class="article-date">
+      <time datetime="2018-04-19T16:03:50.000Z" itemprop="datePublished">2018-04-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/20/MT8852B%E6%B5%8B%E8%AF%95%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E7%89%B9%E6%80%A7/">MT8852B测试蓝牙射频特性</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>    MT8852B是一款综合测试仪，可以测试蓝牙2.0，3.0和低功耗蓝牙。</p>
+<p>    我在测试低功耗蓝牙时，有技术人员告诉我必须将8852上的EUT控制端口和被测设备连接在一起，这样做的目的是为了8852发送测试命令给被测设备，使被测设备进入测试模式，从而向外发送特定负载的载波，当你的载波负载为空时，8852无法进行蓝牙测试。测试发射功率，即Tx Power时，被测设备应发送负载为prbs9的载波，测试频偏和调制特性和灵敏度时的负载可以由多种，11110000或者10101010都行。</p>
+<p>    不将8852EUT控制端口和被测设备连接在一起时，只能测试蓝牙2.0和蓝牙3.0，这时8852通过查询被测设备地址来和被测设备建立连接。</p>
+<p>    就我的理解，在测试低功耗蓝牙时，也许可以不用将8852通过EUT控制端口和被测设备连接在一起，可以通过上位机控制被测设备一直往外发送固定负载的载波，也可以让被测设备开机后就一直发送固定负载的谐波，这样蓝牙测试仪应该也可以检测到被测设备蓝牙的各项参数。</p>
+<p>    我在8852B的操作手册上看到过这样的介绍，被测设备和蓝牙测试仪不用EUTcontrol建立连接时，无法利用脚本进行测试，但是可以进行single单个的测试，所以被测设备和蓝牙测试仪不利用EUT control建立连接时，应该也是正常进行测试的。</p>
+<p>    当然这只是我的一点理解，是否真的可以，还需要进行验证。</p>
+<p>    如果蓝牙测试时，被测设备发送的蓝牙信号是搭载在2.4G蓝牙上的空载谐波，可以利用频谱仪进行测量，比如HP 8594等。</p>
+
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" class="archive-article-date">
-      <time datetime="2020-10-15T14:33:28.917Z" itemprop="datePublished">10-15</time>
-</a>
-        </div>
-         
-        <div class="article-info info-on-archive">
-          
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2020/10/14/hello-world/" class="archive-article-date">
-      <time datetime="2020-10-14T12:25:26.136Z" itemprop="datePublished">10-14</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/14/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" class="archive-article-date">
-      <time datetime="2020-08-11T08:04:37.000Z" itemprop="datePublished">08-11</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/">Python用PIL获取图片信息</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/GUI/">GUI</a>
     </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/" class="archive-article-date">
-      <time datetime="2020-08-03T11:50:28.000Z" itemprop="datePublished">08-03</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/">Python爬取哔哩哔哩视频的相关信息后续</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/python3-%E7%88%AC%E8%99%AB/">python3 爬虫</a>
-    </div>
-
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/" class="archive-article-date">
-      <time datetime="2020-08-01T09:22:53.000Z" itemprop="datePublished">08-01</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/">Python爬取哔哩哔哩视频的相关信息并保存到excel文档</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/python3-%E7%88%AC%E8%99%AB/">python3 爬虫</a>
-    </div>
-
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/" class="archive-article-date">
-      <time datetime="2020-07-24T10:36:50.000Z" itemprop="datePublished">07-24</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/">python pyqt5开发小结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/GUI/">GUI</a>
-    </div>
-
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/" class="archive-article-date">
-      <time datetime="2019-12-19T09:11:39.000Z" itemprop="datePublished">12-19</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/">获取程序编译后链接脚本中变量</a>
-    </h1>
-  
 
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E9%A9%B1%E5%8A%A8/">驱动</a>
+      
+      
+      <div class="clearfix"></div>
     </div>
-
-
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
   </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="archive-article-date">
-      <time datetime="2019-08-08T07:42:29.000Z" itemprop="datePublished">08-08</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">项目调试一点小结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Nordic/">Nordic</a>
-    </div>
 
 
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/" class="archive-article-date">
-      <time datetime="2019-08-08T06:16:58.000Z" itemprop="datePublished">08-08</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/">提升刷屏速度，降低显示水纹效果的一点想法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/GUI/">GUI</a>
-    </div>
 
 
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-      <time datetime="2019-07-05T11:33:54.000Z" itemprop="datePublished">07-05</time>
-</a>
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">4412学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-    </div>
 
 
-          
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+  
+  
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
     </nav>
   
-
 </div>
       <footer id="footer">
     <div class="outer">
@@ -628,17 +368,6 @@
         };
     })
 </script>
-
-    <button class="hide-labels">TAG 开关</button>
-    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
-    </script>
-    <script>
-        $(document).ready(function() {
-            $("button").click(function() {
-                $(".article-info").toggle(200);
-            });
-        });
-    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>

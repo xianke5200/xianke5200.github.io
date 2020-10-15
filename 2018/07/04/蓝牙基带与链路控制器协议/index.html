@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | xianke5200的个人博客</title>
+  <title>蓝牙基带与链路控制器协议 | xianke5200的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="#1蓝牙基带概述 蓝牙发送数据时基带部分将来自高层协议的数据进行信道编码，向下给射频进行发送；接收数据时，射频将数据经过解调恢复空中数据上传给基带，基带再对数据进行信道解码，向高层传输。    信道分组编码遵循小端格式。    蓝牙设备地址可以分为三个部分：LAP地位地址（24位）、UAP高位地址（8位）和NAP无效地址部分（16位）；NAP和UAP共同构成了设备的唯一标识符，由SIG的蓝牙地址管">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2020/10/14/hello-world/index.html">
+<meta property="og:title" content="蓝牙基带与链路控制器协议">
+<meta property="og:url" content="http://example.com/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/index.html">
 <meta property="og:site_name" content="xianke5200的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="#1蓝牙基带概述 蓝牙发送数据时基带部分将来自高层协议的数据进行信道编码，向下给射频进行发送；接收数据时，射频将数据经过解调恢复空中数据上传给基带，基带再对数据进行信道解码，向高层传输。    信道分组编码遵循小端格式。    蓝牙设备地址可以分为三个部分：LAP地位地址（24位）、UAP高位地址（8位）和NAP无效地址部分（16位）；NAP和UAP共同构成了设备的唯一标识符，由SIG的蓝牙地址管">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-10-14T12:25:26.136Z">
-<meta property="article:modified_time" content="2020-10-14T12:25:26.137Z">
+<meta property="article:published_time" content="2018-07-04T13:52:39.000Z">
+<meta property="article:modified_time" content="2020-10-15T09:50:08.090Z">
 <meta property="article:author" content="xianke5200">
 <meta name="twitter:card" content="summary">
   
@@ -216,11 +216,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-蓝牙基带与链路控制器协议" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/10/14/hello-world/" class="article-date">
-      <time datetime="2020-10-14T12:25:26.136Z" itemprop="datePublished">2020-10-14</time>
+      <a href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/" class="article-date">
+      <time datetime="2018-07-04T13:52:39.000Z" itemprop="datePublished">2018-07-04</time>
 </a>
     </div>
   
@@ -233,7 +233,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      蓝牙基带与链路控制器协议
     </h1>
   
 
@@ -250,19 +250,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <p>#1蓝牙基带概述</p>
+<p>蓝牙发送数据时基带部分将来自高层协议的数据进行信道编码，向下给射频进行发送；接收数据时，射频将数据经过解调恢复空<br>中数据上传给基带，基带再对数据进行信道解码，向高层传输。<br>    信道分组编码遵循小端格式。<br>    蓝牙设备地址可以分为三个部分：LAP地位地址（24位）、UAP高位地址（8位）和NAP无效地址部分（16位）；NAP和UAP共同构成了设备的唯一标识符，由SIG的蓝牙地址管理机构分配给各个蓝牙设备制造商。<br>    一个微微网只有一个主设备，一个主设备最多可以同时与7个从设备同时进行通信，这些从化设备称为激活从设备。还可以由隶属与这个微微网中主设备的休眠从设备。休眠从设备不进行数据收发，但是与主设备仍然保持时钟同步。<br>    每个人蓝牙设备都有一个独立运行的内部本地时钟，用于决定收发器的定时和跳频同步。微微网中的定时和跳频选择由主设备的始终决定，建立微微网是，主设备的时钟传送给从设备，每个从设备给自己的本地时钟加一个偏移量，实现与主设备的同步。<br>    蓝牙基带有四个关键周期312.5us、625us、1.25ms和1.28s，主设备发往从设备的数据从偶数时隙开始发送。<br>    CLKN(本地时钟频率）、CLKE（估计时钟频率）CLK（实际运行时钟频率）；CLK和CLKE由CLKN加上一个偏移量得到。<br>#2蓝牙物理链路<br>通信设备之间物理层的数据连接通道就是物理链路。蓝牙系统由两种物理链路：ACLHE SCO。<br>    ACL链路既可以支持异步应用也可以支持同步应用，一对主从舍必只能建立一条ACL链路，ACL链路的通信的可靠性可以由分组重传来保证。<br>    SCO链路数据分组不进行重传操作，一般用于实时性很强的数据传输。只有建立了ACL链路才可以建立SCO链路，一个微微网中的主设备最多可以同时建立三条SCO链路。<br>#3蓝牙基带分组<br>基带分组至少包含接入码（72或68bit），大多情况下还包含分组头（54bit）和有效载荷（0~2745bit）。<br>    接入码用于同步、直流载频泄露偏执补偿和标识。接入码包含引导码（4bit）、同步字（64bit）和尾码（4bit）。<br>    接入码可以分为三类：信道接入码、设备接入码和请求接入码。<br>    引导码用于DC偏置补偿，引导吗只有两种1010和0101，具体取值取决于紧跟的同步字最低位为0（0101）还是1（1010）。<br>    同步字基于对应设备地址的LAP。<br>    尾码取值只有两种，取决于同步字最高位为0（1010）还是为1（0101）.<br>    分组头格式包含如下：<br>    AM_ADDR：3 ：微微网中激活从设备的地址。<br>    TYPE：4 ：分组类型，共有16中。<br>    FLOW：1 ：ACL链路的数据分组的流量控制标志。<br>    ARQN：1 ：无编号自动请求重发。<br>    SEQN：1 ：序列编号，提供了一种防止分组重传的的机制，对于无编号的ARQ特别重要。<br>    HEC：8 ：分组头错误校验。<br>    有效载荷分为语音有效载荷和数据有效载荷。语音有效载荷长度固定，没有有效载荷头；数据有效载荷包括有效载荷头、有效载荷体和CRC校验码。<br>#4蓝牙基带纠错机制<br>蓝牙基带部分提供了三种纠错机制1/3比例FEC、2/3比例FEC和ARQ.<br>#5蓝牙基带逻辑信道<br>链路控制、链路管理、用户异步数据、用户等时数据和用户同步数据信道。<br>#6蓝牙基带收发规则<br>发送规则<br>    主设备为每个从设备准备了一个独立的ACL链路的TX缓冲器，一个或多个SCO链路TX缓冲器。<br>    每个TX缓冲器包括两个先入先出寄存器，这连个缓冲器交替使用实现数据的异步和同步发送。<br>    接收规则<br>    主设备对所有从设备共用一个ACL链路的RX缓冲器，SCO缓冲器的数量取决于实际SCO链路的数量。规则与的发送类似。</p>
 
       
       
@@ -318,13 +307,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2020/10/14/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/">蓝牙基带与链路控制器协议</a></p>
         <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
-        <p><span>发布时间:</span>2020年10月14日 - 20时25分</p>
-        <p><span>最后更新:</span>2020年10月14日 - 20时25分</p>
+        <p><span>发布时间:</span>2018年07月04日 - 21时52分</p>
+        <p><span>最后更新:</span>2020年10月15日 - 17时50分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/10/14/hello-world/" title="Hello World">http://example.com/2020/10/14/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://example.com/2020/10/14/hello-world/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/" title="蓝牙基带与链路控制器协议">http://example.com/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://example.com/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/　　作者: " title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -337,18 +326,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          (no title)
+          nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll
         
       </div>
     </a>
   
   
-    <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python用PIL获取图片信息</div>
+    <a href="/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">蓝牙射频协议规范</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -359,7 +348,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -406,34 +395,17 @@
 
 
 
-    
-        <div id="gitments"></div>
-<script src="/js/gitment.browser.js"></script>
-<script>
-    var gitment = new Gitment({
-      id: window.location.pathname,
-      owner: 'xianke5200',
-      repo: 'xianke5200.github.io',
-      oauth: {
-        client_id: '',
-        client_secret: '',
-      },
-    })
-    gitment.render('gitments')
-</script>
-    
-
 
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2020/10/15/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/" title="上一篇: ">
+            <a href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/" title="上一篇: nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/" title="下一篇: Python用PIL获取图片信息">
+            <a href="/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/" title="下一篇: 蓝牙射频协议规范">
                 <i class="fa fa-angle-right"></i>
             </a>
         
