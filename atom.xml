@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>xianke5200的个人博客</title>
+  <title>闲客&#39;Blog</title>
   
+  <subtitle>业精于勤荒于嬉， 行成于思毁于随</subtitle>
+  <link href="http://xianke5200.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/atom.xml" rel="self"/>
-  
-  <link href="http://example.com/"/>
+  <link href="http://xianke5200.github.io/"/>
   <updated>2020-10-15T16:08:01.619Z</updated>
-  <id>http://example.com/</id>
+  <id>http://xianke5200.github.io/</id>
   
   <author>
     <name>xianke5200</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2020/10/14/hello-world/"/>
-    <id>http://example.com/2020/10/14/hello-world/</id>
+    <link href="http://xianke5200.github.io/2020/10/14/hello-world/"/>
+    <id>http://xianke5200.github.io/2020/10/14/hello-world/</id>
     <published>2020-10-14T12:25:26.136Z</published>
     <updated>2020-10-15T16:08:01.619Z</updated>
     
@@ -30,17 +30,17 @@
     
     
     
-    <category term="test" scheme="http://example.com/categories/test/"/>
+    <category term="test" scheme="http://xianke5200.github.io/categories/test/"/>
     
     
-    <category term="test" scheme="http://example.com/tags/test/"/>
+    <category term="test" scheme="http://xianke5200.github.io/tags/test/"/>
     
   </entry>
   
   <entry>
     <title>Python用PIL获取图片信息</title>
-    <link href="http://example.com/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/"/>
-    <id>http://example.com/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/</id>
+    <link href="http://xianke5200.github.io/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/"/>
+    <id>http://xianke5200.github.io/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/</id>
     <published>2020-08-11T08:04:37.000Z</published>
     <updated>2020-10-15T09:28:07.680Z</updated>
     
@@ -55,17 +55,17 @@
     
     
     
-    <category term="GUI" scheme="http://example.com/categories/GUI/"/>
+    <category term="GUI" scheme="http://xianke5200.github.io/categories/GUI/"/>
     
     
-    <category term="python" scheme="http://example.com/tags/python/"/>
+    <category term="python" scheme="http://xianke5200.github.io/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>Python爬取哔哩哔哩视频的相关信息后续</title>
-    <link href="http://example.com/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/"/>
-    <id>http://example.com/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/</id>
+    <link href="http://xianke5200.github.io/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/"/>
+    <id>http://xianke5200.github.io/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/</id>
     <published>2020-08-03T11:50:28.000Z</published>
     <updated>2020-10-15T09:29:28.224Z</updated>
     
@@ -79,15 +79,15 @@
     
     
     
-    <category term="python3 爬虫" scheme="http://example.com/categories/python3-%E7%88%AC%E8%99%AB/"/>
+    <category term="python3 爬虫" scheme="http://xianke5200.github.io/categories/python3-%E7%88%AC%E8%99%AB/"/>
     
     
   </entry>
   
   <entry>
     <title>Python爬取哔哩哔哩视频的相关信息并保存到excel文档</title>
-    <link href="http://example.com/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/"/>
-    <id>http://example.com/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/</id>
+    <link href="http://xianke5200.github.io/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/"/>
+    <id>http://xianke5200.github.io/2020/08/01/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/</id>
     <published>2020-08-01T09:22:53.000Z</published>
     <updated>2020-10-15T09:31:28.504Z</updated>
     
@@ -101,15 +101,15 @@
     
     
     
-    <category term="python3 爬虫" scheme="http://example.com/categories/python3-%E7%88%AC%E8%99%AB/"/>
+    <category term="python3 爬虫" scheme="http://xianke5200.github.io/categories/python3-%E7%88%AC%E8%99%AB/"/>
     
     
   </entry>
   
   <entry>
     <title>python pyqt5开发小结</title>
-    <link href="http://example.com/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/"/>
-    <id>http://example.com/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/</id>
+    <link href="http://xianke5200.github.io/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/"/>
+    <id>http://xianke5200.github.io/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/</id>
     <published>2020-07-24T10:36:50.000Z</published>
     <updated>2020-10-15T09:31:22.337Z</updated>
     
@@ -124,15 +124,15 @@
     
     
     
-    <category term="GUI" scheme="http://example.com/categories/GUI/"/>
+    <category term="GUI" scheme="http://xianke5200.github.io/categories/GUI/"/>
     
     
   </entry>
   
   <entry>
     <title>获取程序编译后链接脚本中变量</title>
-    <link href="http://example.com/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/"/>
-    <id>http://example.com/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/</id>
+    <link href="http://xianke5200.github.io/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/"/>
+    <id>http://xianke5200.github.io/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/</id>
     <published>2019-12-19T09:11:39.000Z</published>
     <updated>2020-10-15T09:32:35.505Z</updated>
     
@@ -147,15 +147,15 @@
     
     
     
-    <category term="驱动" scheme="http://example.com/categories/%E9%A9%B1%E5%8A%A8/"/>
+    <category term="驱动" scheme="http://xianke5200.github.io/categories/%E9%A9%B1%E5%8A%A8/"/>
     
     
   </entry>
   
   <entry>
     <title>项目调试一点小结</title>
-    <link href="http://example.com/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://example.com/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
+    <link href="http://xianke5200.github.io/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://xianke5200.github.io/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
     <published>2019-08-08T07:42:29.000Z</published>
     <updated>2020-10-15T09:35:53.464Z</updated>
     
@@ -169,15 +169,15 @@
     
     
     
-    <category term="Nordic" scheme="http://example.com/categories/Nordic/"/>
+    <category term="Nordic" scheme="http://xianke5200.github.io/categories/Nordic/"/>
     
     
   </entry>
   
   <entry>
     <title>项目调试一点小结</title>
-    <link href="http://example.com/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/"/>
-    <id>http://example.com/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/</id>
+    <link href="http://xianke5200.github.io/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/"/>
+    <id>http://xianke5200.github.io/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/</id>
     <published>2019-08-08T07:42:29.000Z</published>
     <updated>2020-10-15T14:47:20.957Z</updated>
     
@@ -191,15 +191,15 @@
     
     
     
-    <category term="Nordic" scheme="http://example.com/categories/Nordic/"/>
+    <category term="Nordic" scheme="http://xianke5200.github.io/categories/Nordic/"/>
     
     
   </entry>
   
   <entry>
     <title>提升刷屏速度，降低显示水纹效果的一点想法</title>
-    <link href="http://example.com/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/"/>
-    <id>http://example.com/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/</id>
+    <link href="http://xianke5200.github.io/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/"/>
+    <id>http://xianke5200.github.io/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/</id>
     <published>2019-08-08T06:16:58.000Z</published>
     <updated>2020-10-15T09:36:50.993Z</updated>
     
@@ -213,15 +213,15 @@
     
     
     
-    <category term="GUI" scheme="http://example.com/categories/GUI/"/>
+    <category term="GUI" scheme="http://xianke5200.github.io/categories/GUI/"/>
     
     
   </entry>
   
   <entry>
     <title>4412学习笔记</title>
-    <link href="http://example.com/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>http://example.com/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <link href="http://xianke5200.github.io/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>http://xianke5200.github.io/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2019-07-05T11:33:54.000Z</published>
     <updated>2020-10-15T09:39:21.217Z</updated>
     
@@ -235,15 +235,15 @@
     
     
     
-    <category term="Linux" scheme="http://example.com/categories/Linux/"/>
+    <category term="Linux" scheme="http://xianke5200.github.io/categories/Linux/"/>
     
     
   </entry>
   
   <entry>
     <title>关于提升仿动态图显示速度的一点想法</title>
-    <link href="http://example.com/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/"/>
-    <id>http://example.com/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/</id>
+    <link href="http://xianke5200.github.io/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/"/>
+    <id>http://xianke5200.github.io/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/</id>
     <published>2019-06-27T09:18:49.000Z</published>
     <updated>2020-10-15T09:40:21.128Z</updated>
     
@@ -257,15 +257,15 @@
     
     
     
-    <category term="GUI" scheme="http://example.com/categories/GUI/"/>
+    <category term="GUI" scheme="http://xianke5200.github.io/categories/GUI/"/>
     
     
   </entry>
   
   <entry>
     <title>软件QSPI调试</title>
-    <link href="http://example.com/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/"/>
-    <id>http://example.com/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/</id>
+    <link href="http://xianke5200.github.io/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/"/>
+    <id>http://xianke5200.github.io/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/</id>
     <published>2019-05-20T10:29:27.000Z</published>
     <updated>2020-10-15T09:41:03.689Z</updated>
     
@@ -279,15 +279,15 @@
     
     
     
-    <category term="驱动" scheme="http://example.com/categories/%E9%A9%B1%E5%8A%A8/"/>
+    <category term="驱动" scheme="http://xianke5200.github.io/categories/%E9%A9%B1%E5%8A%A8/"/>
     
     
   </entry>
   
   <entry>
     <title>csr8610调试小结</title>
-    <link href="http://example.com/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/"/>
-    <id>http://example.com/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/</id>
+    <link href="http://xianke5200.github.io/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/"/>
+    <id>http://xianke5200.github.io/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/</id>
     <published>2018-12-21T09:08:55.000Z</published>
     <updated>2020-10-15T09:41:49.174Z</updated>
     
@@ -301,15 +301,15 @@
     
     
     
-    <category term="CSR8610" scheme="http://example.com/categories/CSR8610/"/>
+    <category term="CSR8610" scheme="http://xianke5200.github.io/categories/CSR8610/"/>
     
     
   </entry>
   
   <entry>
     <title>Xmodem协议</title>
-    <link href="http://example.com/2018/11/12/Xmodem%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://example.com/2018/11/12/Xmodem%E5%8D%8F%E8%AE%AE/</id>
+    <link href="http://xianke5200.github.io/2018/11/12/Xmodem%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://xianke5200.github.io/2018/11/12/Xmodem%E5%8D%8F%E8%AE%AE/</id>
     <published>2018-11-12T09:21:00.000Z</published>
     <updated>2020-10-15T09:43:48.465Z</updated>
     
@@ -323,15 +323,15 @@
     
     
     
-    <category term="驱动" scheme="http://example.com/categories/%E9%A9%B1%E5%8A%A8/"/>
+    <category term="驱动" scheme="http://xianke5200.github.io/categories/%E9%A9%B1%E5%8A%A8/"/>
     
     
   </entry>
   
   <entry>
     <title>nrodic工具指令</title>
-    <link href="http://example.com/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/"/>
-    <id>http://example.com/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/</id>
+    <link href="http://xianke5200.github.io/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/"/>
+    <id>http://xianke5200.github.io/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/</id>
     <published>2018-11-09T03:10:45.000Z</published>
     <updated>2020-10-15T09:44:22.241Z</updated>
     
@@ -345,15 +345,15 @@
     
     
     
-    <category term="Nordic" scheme="http://example.com/categories/Nordic/"/>
+    <category term="Nordic" scheme="http://xianke5200.github.io/categories/Nordic/"/>
     
     
   </entry>
   
   <entry>
     <title>emwin从外部flash中读取bmp图片显示</title>
-    <link href="http://example.com/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/"/>
-    <id>http://example.com/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</id>
+    <link href="http://xianke5200.github.io/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/"/>
+    <id>http://xianke5200.github.io/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/</id>
     <published>2018-11-08T07:15:17.000Z</published>
     <updated>2020-10-15T09:44:54.105Z</updated>
     
@@ -367,15 +367,15 @@
     
     
     
-    <category term="GUI" scheme="http://example.com/categories/GUI/"/>
+    <category term="GUI" scheme="http://xianke5200.github.io/categories/GUI/"/>
     
     
   </entry>
   
   <entry>
     <title>nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll</title>
-    <link href="http://example.com/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/"/>
-    <id>http://example.com/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/</id>
+    <link href="http://xianke5200.github.io/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/"/>
+    <id>http://xianke5200.github.io/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/</id>
     <published>2018-07-17T07:33:36.000Z</published>
     <updated>2020-10-15T09:49:32.610Z</updated>
     
@@ -389,15 +389,15 @@
     
     
     
-    <category term="驱动" scheme="http://example.com/categories/%E9%A9%B1%E5%8A%A8/"/>
+    <category term="驱动" scheme="http://xianke5200.github.io/categories/%E9%A9%B1%E5%8A%A8/"/>
     
     
   </entry>
   
   <entry>
     <title>蓝牙基带与链路控制器协议</title>
-    <link href="http://example.com/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://example.com/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/</id>
+    <link href="http://xianke5200.github.io/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://xianke5200.github.io/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/</id>
     <published>2018-07-04T13:52:39.000Z</published>
     <updated>2020-10-15T09:50:08.090Z</updated>
     
@@ -417,8 +417,8 @@
   
   <entry>
     <title>蓝牙射频协议规范</title>
-    <link href="http://example.com/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/"/>
-    <id>http://example.com/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/</id>
+    <link href="http://xianke5200.github.io/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/"/>
+    <id>http://xianke5200.github.io/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/</id>
     <published>2018-06-14T13:42:33.000Z</published>
     <updated>2020-10-15T09:50:46.282Z</updated>
     
@@ -434,15 +434,15 @@
     
     
     
-    <category term="蓝牙" scheme="http://example.com/categories/%E8%93%9D%E7%89%99/"/>
+    <category term="蓝牙" scheme="http://xianke5200.github.io/categories/%E8%93%9D%E7%89%99/"/>
     
     
   </entry>
   
   <entry>
     <title>QT添加GPIB驱动库</title>
-    <link href="http://example.com/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/"/>
-    <id>http://example.com/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/</id>
+    <link href="http://xianke5200.github.io/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/"/>
+    <id>http://xianke5200.github.io/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/</id>
     <published>2018-04-25T15:08:25.000Z</published>
     <updated>2020-10-15T09:52:44.258Z</updated>
     
