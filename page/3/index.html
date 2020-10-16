@@ -188,7 +188,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/test/" style="font-size: 10px;">test</a>
+                        <a href="/tags/test/" style="font-size: 10px;">test</a>
                     </div>
                 </section>
                 
@@ -285,14 +285,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>    MT8852B是一款综合测试仪，可以测试蓝牙2.0，3.0和低功耗蓝牙。</p>
-<p>    我在测试低功耗蓝牙时，有技术人员告诉我必须将8852上的EUT控制端口和被测设备连接在一起，这样做的目的是为了8852发送测试命令给被测设备，使被测设备进入测试模式，从而向外发送特定负载的载波，当你的载波负载为空时，8852无法进行蓝牙测试。测试发射功率，即Tx Power时，被测设备应发送负载为prbs9的载波，测试频偏和调制特性和灵敏度时的负载可以由多种，11110000或者10101010都行。</p>
-<p>    不将8852EUT控制端口和被测设备连接在一起时，只能测试蓝牙2.0和蓝牙3.0，这时8852通过查询被测设备地址来和被测设备建立连接。</p>
-<p>    就我的理解，在测试低功耗蓝牙时，也许可以不用将8852通过EUT控制端口和被测设备连接在一起，可以通过上位机控制被测设备一直往外发送固定负载的载波，也可以让被测设备开机后就一直发送固定负载的谐波，这样蓝牙测试仪应该也可以检测到被测设备蓝牙的各项参数。</p>
-<p>    我在8852B的操作手册上看到过这样的介绍，被测设备和蓝牙测试仪不用EUTcontrol建立连接时，无法利用脚本进行测试，但是可以进行single单个的测试，所以被测设备和蓝牙测试仪不利用EUT control建立连接时，应该也是正常进行测试的。</p>
-<p>    当然这只是我的一点理解，是否真的可以，还需要进行验证。</p>
-<p>    如果蓝牙测试时，被测设备发送的蓝牙信号是搭载在2.4G蓝牙上的空载谐波，可以利用频谱仪进行测量，比如HP 8594等。</p>
-
+              MT8852B是一款综合测试仪，可以测试蓝牙2.0，3.0和低功耗蓝牙。
+          
       
       
     </div>
@@ -300,8 +294,16 @@
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/MT8852B/">MT8852B</a>
+    </div>
+
 
       
+      
+        <p class="article-more-link">
+          <a  href="/2018/04/20/MT8852B%E6%B5%8B%E8%AF%95%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E7%89%B9%E6%80%A7/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
