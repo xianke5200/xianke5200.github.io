@@ -196,7 +196,7 @@
     <link href="http://xianke5200.github.io/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://xianke5200.github.io/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
     <published>2019-07-05T11:33:54.000Z</published>
-    <updated>2020-10-16T12:46:25.424Z</updated>
+    <updated>2020-10-16T13:31:06.144Z</updated>
     
     <content type="html"><![CDATA[<p>局域网通信：<br>同一网段：当一个网路的IP地址与子网掩码相与之后的值与另一个网络的IP地址与子网掩码相与值后的值相等的时候，就可以认为两个网络处于同一网段，这时两个网络就可以通过网络进行通信。确认两个网络是否可以通信，可以使用ping指令（ping + ip）。<br>    假如现在有两个网络设备，可以将两个网络设备直接利用网线连接在一起或者利用路由器，两个网络设备接在同一个路由器上，然后在其中一个网络设备上使用<strong>ping + 另一设备的网络地址</strong>，如果可以ping通，就表示两个网络再同一网段，可以正常通信；如果ping不通，可以手动修改两个网络设备的ip地址，使得这两个网络处于同一网段，就可以建立简单的局域网通信了。</p>]]></content>
     
@@ -205,7 +205,7 @@
     
     
     
-    <category term="Linux" scheme="http://xianke5200.github.io/categories/Linux/"/>
+    <category term="categories" scheme="http://xianke5200.github.io/categories/categories/"/>
     
     
   </entry>
