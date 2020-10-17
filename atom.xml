@@ -6,7 +6,7 @@
   <link href="http://xianke5200.github.io/atom.xml" rel="self"/>
   
   <link href="http://xianke5200.github.io/"/>
-  <updated>2020-10-17T09:25:32.164Z</updated>
+  <updated>2020-10-17T09:35:02.388Z</updated>
   <id>http://xianke5200.github.io/</id>
   
   <author>
@@ -21,12 +21,12 @@
     <link href="http://xianke5200.github.io/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/"/>
     <id>http://xianke5200.github.io/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/</id>
     <published>2020-10-17T08:38:13.000Z</published>
-    <updated>2020-10-17T09:25:32.164Z</updated>
+    <updated>2020-10-17T09:35:02.388Z</updated>
     
-    <content type="html"><![CDATA[<p> 当把通过hexo搭建好的博客部署到github后，应该都希望，可以能够通过外网访问自己的博客，<a id="more"></a>可以很方便的和别人分享自己的成果，同时也可以很好的记录以及自己需要的时候查阅。<br> 在部署好自己博客后，可能会出现无法访问拉ing中情况</p><h1 id="无法访问"><a href="#无法访问" class="headerlink" title="无法访问"></a>无法访问</h1><p> 这种情况可能是由于电信运营商屏蔽的缘故，导致外网无法访问，可以通过修改本地hosts文件来解决该问题，该文件路径（C:\Windows\System32\drivers\etc\）,然后再ipip.net网站查询自己博客网站的ip地址，最后在hosts文件中按示例添加自己网站的ip地址以及网站链接，类似如下：<br> <img src="./images/20201017_01.png" alt="enter description here"></p><h1 id="出现404警告"><a href="#出现404警告" class="headerlink" title="出现404警告"></a>出现404警告</h1><p> 出现这种情况有可能是，Github Pages没有启用的缘故，可以在库上项目设置中启用该项即可<br> 如下图：<br> <img src="./images/20201017_02.png" alt="enter description here"><br> <img src="./images/20201017_03.png" alt="enter description here"><br> 按图中启用自己同步到库上的代码分支即可正常访问。</p>]]></content>
+    <content type="html"><![CDATA[<p> 当把通过hexo搭建好的博客部署到github后，应该都希望，可以能够通过外网访问自己的博客，<a id="more"></a>可以很方便的和别人分享自己的成果，同时也可以很好的记录以及自己需要的时候查阅。<br> 在部署好自己博客后，可能会出现无法访问拉ing中情况</p><h1 id="无法访问"><a href="#无法访问" class="headerlink" title="无法访问"></a>无法访问</h1><p> 这种情况可能是由于电信运营商屏蔽的缘故，导致外网无法访问，可以通过修改本地hosts文件来解决该问题，该文件路径（C:\Windows\System32\drivers\etc\）,然后再ipip.net网站查询自己博客网站的ip地址，最后在hosts文件中按示例添加自己网站的ip地址以及网站链接，类似如下：<br><img src="./images/20201017_01_4.png" alt="20201017_01"></p><h1 id="出现404警告"><a href="#出现404警告" class="headerlink" title="出现404警告"></a>出现404警告</h1><p> 出现这种情况有可能是，Github Pages没有启用的缘故，可以在库上项目设置中启用该项即可<br> 如下图：<br><img src="./images/20201017_02_1.png" alt="20201017_02"><br><img src="./images/20201017_03_1.png" alt="20201017_03"><br> 按图中启用自己同步到库上的代码分支即可正常访问。</p>]]></content>
     
     
-    <summary type="html">&lt;p&gt; 当把通过hexo搭建好的博客部署到github后，应该都希望，可以能够通过外网访问自己的博客，</summary>
+    <summary type="html">&lt;p&gt; 当把通过hexo搭建好的博客部署到github后，应该都希望，可以能够通过外网访问自己的博客，&lt;/p&gt;</summary>
     
     
     
