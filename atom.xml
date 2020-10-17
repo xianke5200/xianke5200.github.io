@@ -6,7 +6,7 @@
   <link href="http://xianke5200.github.io/atom.xml" rel="self"/>
   
   <link href="http://xianke5200.github.io/"/>
-  <updated>2020-10-16T12:54:16.768Z</updated>
+  <updated>2020-10-17T08:58:39.999Z</updated>
   <id>http://xianke5200.github.io/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>hexo无法外网访问</title>
+    <link href="http://xianke5200.github.io/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/"/>
+    <id>http://xianke5200.github.io/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/</id>
+    <published>2020-10-17T08:38:13.000Z</published>
+    <updated>2020-10-17T08:58:39.999Z</updated>
+    
+    <content type="html"><![CDATA[<p> 当把通过hexo搭建好的博客部署到github后，应该都希望，可以能够通过外网访问自己的博客，可以很方便的和别人分享自己的成果，同时也可以很好的记录以及自己需要的时候查阅。<br> 在部署好自己博客后，可能会出现无法访问拉ing中情况</p><h1 id="1-无法访问"><a href="#1-无法访问" class="headerlink" title="1.无法访问"></a>1.无法访问</h1><p> 这种情况可能是由于电信运营商屏蔽的缘故，导致外网无法访问，可以通过修改本地hosts文件来解决该问题，该文件路径（C:\Windows\System32\drivers\etc\）,然后再ipip.net网站查询自己博客网站的ip地址，最后在hosts文件中按示例添加自己网站的ip地址以及网站链接，类似如下：<br> <img src="./images/1602924799895.png" alt="enter description here"></p><h1 id="2-出现404警告"><a href="#2-出现404警告" class="headerlink" title="2.出现404警告"></a>2.出现404警告</h1><p> 出现这种情况有可能是，Github Pages没有启用的缘故，可以在库上项目设置中启用该项即可<br> 如下图：<br> <img src="./images/1602925014801.png" alt="enter description here"><br> <img src="./images/1602925075242.png" alt="enter description here"><br> 按图中启用自己同步到库上的代码分支即可正常访问。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt; 当把通过hexo搭建好的博客部署到github后，应该都希望，可以能够通过外网访问自己的博客，可以很方便的和别人分享自己的成果，同时也可以很好的记录以及自己需要的时候查阅。&lt;br&gt; 在部署好自己博客后，可能会出现无法访问拉ing中情况&lt;/p&gt;
+&lt;h1 id=&quot;1-无法访问</summary>
+      
+    
+    
+    
+    <category term="Hexo" scheme="http://xianke5200.github.io/categories/Hexo/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="http://xianke5200.github.io/2020/10/14/hello-world/"/>
     <id>http://xianke5200.github.io/2020/10/14/hello-world/</id>
     <published>2020-10-14T12:25:26.136Z</published>
-    <updated>2020-10-16T12:54:16.768Z</updated>
+    <updated>2020-10-17T08:40:16.921Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
@@ -30,10 +53,10 @@
     
     
     
-    <category term="test" scheme="http://xianke5200.github.io/categories/test/"/>
+    <category term="hexo" scheme="http://xianke5200.github.io/categories/hexo/"/>
     
     
-    <category term="test" scheme="http://xianke5200.github.io/tags/test/"/>
+    <category term="hexo" scheme="http://xianke5200.github.io/tags/hexo/"/>
     
   </entry>
   
@@ -377,25 +400,6 @@
     
     
     <category term="蓝牙" scheme="http://xianke5200.github.io/categories/%E8%93%9D%E7%89%99/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>QT添加GPIB驱动库</title>
-    <link href="http://xianke5200.github.io/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/"/>
-    <id>http://xianke5200.github.io/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/</id>
-    <published>2018-04-25T15:08:25.000Z</published>
-    <updated>2020-10-16T12:34:12.891Z</updated>
-    
-    <content type="html"><![CDATA[<p>第一步安装GPIB卡的驱动，可以安装NI提供的驱动库文件，可以去NI官网查阅<a href="http://search.ni.com/nisearch/app/main/p/ap/tech/lang/zhs/pg/1/sn/ssnav:ndr/aq/AND%28nicontenttype:driver,%20sitesection:ndr,%20AND%20%28OR%28nigen10:785,%20productcategories:785,%20%22NI-488.2%22%29%20,%20OR%28nilanguage:zh-CN,%20nilanguage:en%29%29%29/">下载安装</a><br>第二步在QT工程中添加GPIB库文件<br>        INCLUDEPATH += “C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Include”<br>        LIBS += “C:\Program Files (x86)\IVI Foundation\VISA\WinNT\lib\msc\visa32.lib”<br>在自己的QT工程中添加这两个文件的路径，确认电脑上有这两个文件。<br>    然后就可以通过NI提供的如下接口：<br>    viOpenDefaultRM（sesn）：打开缺省资源管理器资源对话通道。<br>    viFindRsrc（sesn，expr，findList，retcnt，instrDesc）：查询VISA系统进行资源定位。<br>    viOpen（sesn，rsrcname，accessMode，timeout，vi）：打开特定资源的对话通道。<br>    viWrite（）和viRead（）函数<br>    实现查找电脑上的GPIB设备，并与GPIB设备实现通信的简单任务了。</p>]]></content>
-    
-    
-    <summary type="html">第一步安装GPIB卡的驱动，可以安装NI提供的驱动库文件，可以去NI官网查阅</summary>
-    
-    
-    
-    <category term="QT" scheme="http://xianke5200.github.io/categories/QT/"/>
     
     
   </entry>
