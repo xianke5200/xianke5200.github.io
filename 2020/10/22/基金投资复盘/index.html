@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>软件QSPI调试 | 闲客&#39;Blog</title>
+  <title>基金投资复盘 | 闲客&#39;Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="相对于spi，qspi的是四条数据线并行传输数据，读写速度是普通spi的四倍。spi的工作模式有四种">
+  <meta name="description" content="从17年毕业后开始投资基金理财，到现在有三年时间了，刚开始只是小额买入，纯粹是抱着玩一玩的态度，反正金额比较小，亏损一点也不会心疼，顺带可以增长自己的理财经验；在今年开始买入基金额差不多有10多万。在这期间，最大亏损有2000多，最高盈利9000多；所以今天在这对这段时间的及投资基金进行复盘。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="软件QSPI调试">
-<meta property="og:url" content="http://xianke5200.github.io/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/index.html">
+<meta property="og:title" content="基金投资复盘">
+<meta property="og:url" content="http://xianke5200.github.io/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/index.html">
 <meta property="og:site_name" content="闲客&#39;Blog">
-<meta property="og:description" content="相对于spi，qspi的是四条数据线并行传输数据，读写速度是普通spi的四倍。spi的工作模式有四种">
+<meta property="og:description" content="从17年毕业后开始投资基金理财，到现在有三年时间了，刚开始只是小额买入，纯粹是抱着玩一玩的态度，反正金额比较小，亏损一点也不会心疼，顺带可以增长自己的理财经验；在今年开始买入基金额差不多有10多万。在这期间，最大亏损有2000多，最高盈利9000多；所以今天在这对这段时间的及投资基金进行复盘。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-05-20T10:29:27.000Z">
-<meta property="article:modified_time" content="2020-10-19T13:18:54.944Z">
+<meta property="article:published_time" content="2020-10-22T03:56:30.000Z">
+<meta property="article:modified_time" content="2020-10-22T13:15:17.605Z">
 <meta property="article:author" content="xianke5200">
+<meta property="article:tag" content="复盘">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="闲客&#39;Blog" type="application/atom+xml">
@@ -269,11 +270,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-软件QSPI调试" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-基金投资复盘" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/" class="article-date">
-      <time datetime="2019-05-20T10:29:27.000Z" itemprop="datePublished">2019-05-20</time>
+      <a href="/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/" class="article-date">
+      <time datetime="2020-10-22T03:56:30.000Z" itemprop="datePublished">2020-10-22</time>
 </a>
     </div>
   
@@ -286,7 +287,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      软件QSPI调试
+      基金投资复盘
     </h1>
   
 
@@ -295,11 +296,15 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E9%A9%B1%E5%8A%A8/">驱动</a>
+    <a class="article-category-link" href="/categories/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84/">基金投资</a>
     </div>
 
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%8D%E7%9B%98/" rel="tag">复盘</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -307,125 +312,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>  相对于spi，qspi的是四条数据线并行传输数据，读写速度是普通spi的四倍。spi的工作模式有四种，但是qspi的工作模式只有两种也就是模式0（CPOL=0,CPOH=1）和模式3（CPOL=1,CPOL=1）.<br>  在使用软件qspi前，需要先使能对应芯片的qspi功能，一般是先读取使能位的状态寄存器，根据状态寄存器的qspi状态位判断该芯片当前是否已开启qspi，qspi与普通spi不能同时使用，在同一时刻只能有一种起作用。在qspi功能未开启前，需要先通过普通spi功能，来读写qspi使能状态位，开启qspi的功能。在通过普通spi读写状态寄存器时，需要先将hold和wp两个对应的io口拉高，来保证数据的有效传输。<br>  在使用普通spi或者qspi读写的可以通过直接操作寄存器的方式来优化程序的执行速度。<br>  在编写读写函数时要注意时序的问题，模式0：没有读写操作时，CLK引脚拉低，在时钟线的第一个边沿读写数据。<br>                                                                  模式1：没有读写操作时，CLK引脚拉高，在时钟线的第二个边沿读写数据。</p>
-<pre><code>  __INLINE ret_code_t gpio_spi_drv_xfer(uint8_t *ptx_buf, uint16_t tx_length, uint8_t *prx_buf, uint16_t rx_length)
-&#123;
-
-ret_code_t ret = NRF_SUCCESS;
-uint8_t *rx_temp = prx_buf;
-
-GPIO_CS_LOW;
-
-if (tx_length)
-&#123;
-    for(int i = 0; i &lt; tx_length; i++)
-    &#123;
-        uint8_t tx_temp = ptx_buf[i];
-        for(int j = 0; j &lt; 8; j++)
-        &#123;
-            GPIO_CLK_LOW;
-
-            if(tx_temp &amp; 0x80)
-            &#123;
-                GPIO_SPI_MOSI_HIGH;
-            &#125;
-            else
-            &#123;
-                GPIO_SPI_MOSI_LOW;
-            &#125;
-            tx_temp &lt;&lt;= 1;
-            GPIO_CLK_HIGH;
-
-        &#125;
-    &#125;
-&#125;
-
-if (rx_length)
-&#123;        
-    for(int i = 0; i &lt; rx_length; i++)
-    &#123;
-    #if (MISO_PIN != 0XFF)
-        for(unsigned char j = 0; j &lt; 8; j++)
-        &#123;
-            GPIO_CLK_LOW;
-            GPIO_CLK_HIGH;
-            rx_temp[i] &lt;&lt;= 1;
-            if(GPIO_SPI_MISO)
-            &#123;
-                rx_temp[i]++;
-            &#125;
-        &#125;
-    #endif
-    &#125;
-&#125;
-
-GPIO_CS_HIGH;
-return ret;
-&#125;
-
-__INLINE ret_code_t gpio_qspi_drv_xfer(uint8_t *ptx_buf, uint16_t tx_length, uint8_t *prx_buf, uint16_t rx_length)
-&#123;
-ret_code_t ret = NRF_SUCCESS;
-uint8_t *rx_temp = prx_buf;
-QSPI_LOCK();
-GPIO_CS_LOW;
-
-//qspi_drv_set_output();
-if (tx_length &gt; 0)
-&#123;
-    QSPI_DRV_SET_OUTPUT(0xf0);// set pin (28-31) dir to output
-    int size = tx_length;
-    uint8_t byte_reg = 0;
-    for(int i = 0; i &lt; size; i++)
-    &#123;
-        uint8_t tx_temp = (ptx_buf[i] &gt;&gt; 4) &amp; 0x0f;
-
-        GPIO_CLK_LOW;
-        //qspi_drv_write_data(tx_temp);
-        byte_reg = QSPI_READ_WRITE_REG();// get the pin (24 - 31) state
-        QSPI_DRV_WRITE_DAT(((tx_temp&lt;&lt;4)&amp;0xf0) | (byte_reg&amp;0x0f));
-        __nop();
-        GPIO_CLK_HIGH;
-        __nop();
-
-        GPIO_CLK_LOW;
-        //qspi_drv_write_data(ptx_buf[i]);
-        byte_reg = QSPI_READ_WRITE_REG();
-        QSPI_DRV_WRITE_DAT(((ptx_buf[i]&lt;&lt;4)&amp;0xf0) | (byte_reg&amp;0x0f));
-        __nop();
-        GPIO_CLK_HIGH;
-        __nop();
-    &#125;
-    GPIO_CLK_HIGH;
-&#125;
-
-__disable_irq();
-if (rx_length)
-&#123;        
-    //qspi_drv_set_intput();
-    QSPI_DRV_SET_INPUT(0xf0);
-    for(int i = 0; i &lt; rx_length; i++)
-    &#123;    
-        GPIO_CLK_LOW;
-        __nop();__nop();__nop();
-        GPIO_CLK_HIGH;
-        rx_temp[i] = QSPI_DRV_READ_DAT();
-        __nop();
-
-        rx_temp[i] = rx_temp[i] &amp; 0xf0;
-        GPIO_CLK_LOW;
-        __nop();__nop();__nop();
-        GPIO_CLK_HIGH;
-        rx_temp[i] |= (QSPI_DRV_READ_DAT() &gt;&gt; 4);
-        __nop();
-    &#125;
-    GPIO_CLK_HIGH;
-&#125;
-__enable_irq();
-GPIO_CS_HIGH;
-QSPI_UNLOCK();
-return ret;
-&#125;</code></pre>
+        <p>  从17年毕业后开始投资基金理财，到现在有三年时间了，刚开始只是小额买入，纯粹是抱着玩一玩的态度，反正金额比较小，亏损一点也不会心疼，顺带可以增长自己的理财经验；在今年开始买入基金额差不多有10多万。在这期间，最大亏损有2000多，最高盈利9000多；所以今天在这对这段时间的及投资基金进行复盘。<br> <a id="more"></a></p>
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><h2 id="基金操作"><a href="#基金操作" class="headerlink" title="基金操作"></a>基金操作</h2><p>  今年第一次买入基金是在今年三月份左右，当时买入正好在左侧半山腰附近，正处于基金上涨阶段，算是一波上涨行情，持续了大概一两个星期，收益大概也有20%左右，也算小赚了一笔，每天看着基金收益有几百块，内心的贪婪不断放大，没有及时止盈，然后就碰到美股黑天鹅，出现了第一次熔断，当时看到熔断内心反而有些激动，觉得机会来了，毕竟熔断这事几十年才会出现一次，出现这一次熔断后面应该就会迎来一波上涨行情，正是买入的好时机，陆陆续续又买入了不少，然后后面又接着出现了几次美股熔断，账面上的资金不断减少，最后亏损本金2000多，在这期间，亏损不断增多，内心的恐惧不断上升，不知道还会亏损多久，于是选择卖出止损，将之前买入的基金卖出大部分。<br>  随着后面美国量化宽松政策的颁布，大量美金流入股市，带动股市上涨，前期卖出的那部分基金，大多都回到了卖出之前的高峰，甚至创造新高，由此可见，之前的卖出止损操作，算是一次错误操作。如果当时坚持拿住不选择止损，后面的收益应该不差，应该可以达到总资金10%的收益。<br>  在这期间，在支付宝上面关注了薇薇庄主，第一次听到了周期的概念，以苹果价格来衡量基金所处的周期位置，成为一把买入卖出的标尺；开始跟着庄主进行基金的操作，前前后后买入10000多，因为当时第一次接触这种推荐基金操作的情况，但是心里并不是特别相信，纯粹是抱着试一试的态度跟着买入，所以并没有买入太多，后面随着了解的加深，基金收益的不断提高，想要继续买入时已经错过了买入的时机。后面这种上涨的情况一直持续到七月份，买入收益率也达到了30%多，大盘指数达到3200多点，觉得股市这一波上涨快要结束，所以选择全部卖出止盈，在卖出后一个星期，股市迎来了一次短时间的下跌，最后在3200到3400之间震荡，一直持续到现在，此时已经基本空仓，股市也算是在一个高点，不适合继续操作，选择继续观望。当时卖出全部买入基金，肯定损失了一部分收益，这一点倒是没有觉得有什么可惜，一个人不可能赚到所有的钱，在收益率达到预期之后选择止盈应该算是一次正确的操作。但是股市并没有像事先预料的出现较大下跌，所以也失去了后续继续进场买入的机会。</p>
+<h2 id="黄金"><a href="#黄金" class="headerlink" title="黄金"></a>黄金</h2><p>  黄金第一次买入是在3、4月份的时候，但是黄金正经历过一次大的下跌，但是买入的不多，由于当时对黄金的行情走势，没有一个确定的判断，所以不敢一下买入太多，原本是准备等下跌就陆陆续续买入，来不断增加手里的低价筹码，然后再第一次买入后，黄金就迎来了一波打的涨幅，算是打乱了之前定好的策略；原本是不准备继续买入黄金，准备等到黄金再一次下跌的时候再继续买入。这期间关注薇薇庄主已经有一段时间了，对庄主策略的信任度也有了一定的增长。在第一次买入后不久庄主就发了黄金相关的买入消息，所以就又再次做了一笔算是大额买入的操作，在这次买入过后，黄金一直处于上涨的趋势，等到九月份左右，黄金国际价格达到1900将近2000的时候，整体黄金的收益率达到了20%，黄金迎来了第一波比较大的下跌，由于黄金之前一直处于一种上升的趋势，出于对黄金走势的盲目自信，以及内心的贪婪，在这一次下跌过程中，又进行了两次大额买入操作，然而在之后，黄金迎来了更大的下跌，之前的收益全部亏损，截止目前黄金在1850-2000之前振荡，黄金亏损本金2%左右，目前黄金账户已关闭，不再操作。<br>  这次黄金操作属于典型的追涨买入，后续买入操作要引以为戒。</p>
+<h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><p>  1.追涨要慎重，对后续上涨趋势没有70%的把握，绝不追涨<br>  2.买在山顶，属于右侧操作，不能慌，拿住，资金充足情况下，逢跌可酌情买入加仓，降低手中筹码的价格，等待上涨；每次下跌买入一层仓的10%。</p>
+<h1 id="后续操作"><a href="#后续操作" class="headerlink" title="后续操作"></a>后续操作</h1><p>  10月份时，手上还有6只基金，每只基金买入200底仓，准备逢跌加仓，当基金价格低于这次买入的价格的时候，继续买入加仓，高于此次买入价格就不加仓，跌幅超过一个点就买入200，超过2个点就买入400，以此类推。<br>后续每个月中旬对上一个月做一次复盘。</p>
 
       
       
@@ -481,13 +372,13 @@ return ret;
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/">软件QSPI调试</a></p>
+        <p><span>本文标题:</span><a href="/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/">基金投资复盘</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 闲客 的个人博客">闲客</a></p>
-        <p><span>发布时间:</span>2019年05月20日 - 18时29分</p>
-        <p><span>最后更新:</span>2020年10月19日 - 21时18分</p>
+        <p><span>发布时间:</span>2020年10月22日 - 11时56分</p>
+        <p><span>最后更新:</span>2020年10月22日 - 21时15分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/" title="软件QSPI调试">http://xianke5200.github.io/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://xianke5200.github.io/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/　　作者: 闲客" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/" title="基金投资复盘">http://xianke5200.github.io/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://xianke5200.github.io/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/　　作者: 闲客" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -500,18 +391,9 @@ return ret;
 
 <nav id="article-nav">
   
-    <a href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          关于提升仿动态图显示速度的一点想法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">csr8610调试小结</div>
+    <a href="/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">hexo无法外网访问</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -522,7 +404,7 @@ return ret;
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E9%87%91%E6%93%8D%E4%BD%9C"><span class="toc-number">1.1.</span> <span class="toc-text">基金操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%84%E9%87%91"><span class="toc-number">1.2.</span> <span class="toc-text">黄金</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AD%96%E7%95%A5"><span class="toc-number">2.</span> <span class="toc-text">策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E6%93%8D%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">后续操作</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -569,17 +451,17 @@ return ret;
 
 
 
+    
+
 
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/" title="上一篇: 关于提升仿动态图显示速度的一点想法">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/" title="下一篇: csr8610调试小结">
+            <a href="/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/" title="下一篇: hexo无法外网访问">
                 <i class="fa fa-angle-right"></i>
             </a>
         
