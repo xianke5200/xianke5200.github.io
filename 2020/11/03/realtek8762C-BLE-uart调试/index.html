@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>realtek8762C BLE uart调试 | 闲客&#39;Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在realtek板子上没有自带ble uart服务的例程代码，需要自己定义，最近因项目需求，通过nordic UART APP利用蓝牙打印数据，所以自己定义ble uart服务来适配NORDIC UART服务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="realtek8762C BLE uart调试">
+<meta property="og:url" content="http://xianke5200.github.io/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/index.html">
+<meta property="og:site_name" content="闲客&#39;Blog">
+<meta property="og:description" content="在realtek板子上没有自带ble uart服务的例程代码，需要自己定义，最近因项目需求，通过nordic UART APP利用蓝牙打印数据，所以自己定义ble uart服务来适配NORDIC UART服务。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-03T03:36:30.000Z">
+<meta property="article:modified_time" content="2020-11-14T14:39:11.415Z">
+<meta property="article:author" content="xianke5200">
+<meta property="article:tag" content="realtek">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternative" href="/atom.xml" title="闲客&#39;Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+		
+		<!--人体时钟背景透明-->
+		<script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script>
+
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">闲客</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">
+			<div id="binft"></div>
+			  <script>
+				var binft = function (r) {
+				  function t() {
+					return b[Math.floor(Math.random() * b.length)]
+				  }  
+				  function e() {
+					return String.fromCharCode(94 * Math.random() + 33)
+				  }
+				  function n(r) {
+					for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+					  var l = document.createElement("span");
+					  l.textContent = e(), l.style.color = t(), n.appendChild(l)
+					}
+					return n
+				  }
+				  function i() {
+					var t = o[c.skillI];
+					c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+				  }
+				  var l = "",
+				  o = ["业精于勤荒于嬉，行成于思毁于随。"].map(function (r) {
+				  return r + ""
+				  }),
+				  a = 2,
+				  g = 1,
+				  s = 5,
+				  d = 75,
+				  b = ["rgb(110,64,170)", "rgb(150,61,179)", "rgb(191,60,175)", "rgb(228,65,157)", "rgb(254,75,131)", "rgb(255,94,99)", "rgb(255,120,71)", "rgb(251,150,51)", "rgb(226,183,47)", "rgb(198,214,60)", "rgb(175,240,91)", "rgb(127,246,88)", "rgb(82,246,103)", "rgb(48,239,130)", "rgb(29,223,163)", "rgb(26,199,194)", "rgb(35,171,216)", "rgb(54,140,225)", "rgb(76,110,219)", "rgb(96,84,200)"],
+				  c = {
+					text: "",
+					prefixP: -s,
+					skillI: 0,
+					skillP: 0,
+					direction: "forward",
+					delay: a,
+					step: g
+				  };
+				  i()
+				  };
+				  binft(document.getElementById('binft'));
+			  </script>
+
+		</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/categories/">文章分类</a></li>
+                        
+                            <li><a href="/archives/">归档</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/xianke5200" title="github">github</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/realtek/" style="font-size: 10px;">realtek</a> <a href="/tags/%E5%A4%8D%E7%9B%98/" style="font-size: 10px;">复盘</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://xianke5200.github.io/">xianke5200</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">一只船孤独的航行着， 它既不寻求幸福， 也不逃避幸福， 它只是向前航行， 底下是沉静碧蓝的大海， 头顶是金色的太阳， 将要面对的， 与已成过往的， 较之深埋于它内心的， 皆为微沫。 ---莱蒙托夫&lt;孤独的船&gt;</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">闲客</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">闲客</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">业精于勤荒于嬉， 行成于思毁于随。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/categories/">文章分类</a></li>
+                
+                    <li><a href="/archives/">归档</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/xianke5200" title="github">github</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-realtek8762C-BLE-uart调试" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/" class="article-date">
+      <time datetime="2020-11-03T03:36:30.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      realtek8762C BLE uart调试
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/%E8%93%9D%E7%89%99/">蓝牙</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/realtek/" rel="tag">realtek</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>  在realtek板子上没有自带ble uart服务的例程代码，需要自己定义，最近因项目需求，通过nordic UART APP利用蓝牙打印数据，所以自己定义ble uart服务来适配NORDIC UART服务。<a id="more"></a>目前nrf connect软件已能成功识别Nordic UART Server服务。但是Nordic的nrf UART软件APP还不能正确识别该服务。</p>
+<h1 id="完整代码如下"><a href="#完整代码如下" class="headerlink" title="完整代码如下"></a>完整代码如下</h1><p>BLE_UART.c文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*               Copyright(c) 2017, Realtek Semiconductor Corporation. All rights reserved.</span></span><br><span class="line"><span class="comment">**********************************************************************************************************</span></span><br><span class="line"><span class="comment">* @file     simple_ble_service.c</span></span><br><span class="line"><span class="comment">* @brief    simple BLE profile source file.</span></span><br><span class="line"><span class="comment">* @details  Demonstration of how to implement a self-definition profile.</span></span><br><span class="line"><span class="comment">* @author</span></span><br><span class="line"><span class="comment">* @date</span></span><br><span class="line"><span class="comment">* @version</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;trace.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;uart_ble_service.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gap.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;peripheral_app.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;gap_bond_le.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;ble_common.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;debug_info.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> BLE_UART_ENABLE</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_BLE_SERVICE_CHAR_V1_READ_INDEX           0x02</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_BLE_SERVICE_CHAR_V2_WRITE_INDEX          2<span class="comment">// 5 该参数为对应项的UUID元素在uart_ble_service_tbl中的索引号</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_BLE_SERVICE_CHAR_V3_NOTIFY_INDEX         4<span class="comment">// 7</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_BLE_SERVICE_CHAR_V4_INDICATE_INDEX       0x0a</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_BLE_SERVICE_CHAR_NOTIFY_CCCD_INDEX       (UART_BLE_SERVICE_CHAR_V3_NOTIFY_INDEX + 1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_BLE_SERVICE_CHAR_INDICATE_CCCD_INDEX     (UART_BLE_SERVICE_CHAR_V4_INDICATE_INDEX + 1)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">uint8_t</span> GATT_UUID_UART_SERVICE[<span class="number">16</span>] = &#123;<span class="number">0x9E</span>, <span class="number">0xCA</span>, <span class="number">0xDC</span>, <span class="number">0x24</span>, <span class="number">0x0E</span>, <span class="number">0xE5</span>, <span class="number">0xA9</span>, <span class="number">0xE0</span>, <span class="number">0x93</span>, <span class="number">0xF3</span>, <span class="number">0xA3</span>, <span class="number">0xB5</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x40</span>, <span class="number">0x6E</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">uint8_t</span> GATT_UUID_TX_SERVICE[<span class="number">16</span>] = &#123;<span class="number">0x9E</span>, <span class="number">0xCA</span>, <span class="number">0xDC</span>, <span class="number">0x24</span>, <span class="number">0x0E</span>, <span class="number">0xE5</span>, <span class="number">0xA9</span>, <span class="number">0xE0</span>, <span class="number">0x93</span>, <span class="number">0xF3</span>, <span class="number">0xA3</span>, <span class="number">0xB5</span>, <span class="number">0x03</span>, <span class="number">0x00</span>, <span class="number">0x40</span>, <span class="number">0x6E</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">uint8_t</span> GATT_UUID_RX_SERVICE[<span class="number">16</span>] = &#123;<span class="number">0x9E</span>, <span class="number">0xCA</span>, <span class="number">0xDC</span>, <span class="number">0x24</span>, <span class="number">0x0E</span>, <span class="number">0xE5</span>, <span class="number">0xA9</span>, <span class="number">0xE0</span>, <span class="number">0x93</span>, <span class="number">0xF3</span>, <span class="number">0xA3</span>, <span class="number">0xB5</span>, <span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x40</span>, <span class="number">0x6E</span>&#125;;</span><br><span class="line"></span><br><span class="line">T_SERVER_ID uart_service_id;</span><br><span class="line"><span class="comment">/**&lt;  Value of simple read characteristic. */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">uint8_t</span> uart_char_read_value[UART_READ_V1_MAX_LEN];</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">uint16_t</span> uart_char_read_len = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">char</span> uart_user_descr[] = <span class="string">&quot;uart read characteristic&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**&lt;  Function pointer used to send event to application from simple profile. Initiated in simp_ble_service_add_service. */</span></span><br><span class="line"><span class="keyword">static</span> P_FUN_SERVER_GENERAL_CB pfn_uart_ble_service_cb = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**&lt; @brief  profile/service definition.  </span></span><br><span class="line"><span class="comment">基本服务想在列表最前端，自定义uart服务，UUID为特定的128位UUID，所以基本服务属性需配置为ATTRIB_FLAG_VOID | ATTRIB_FLAG_LE</span></span><br><span class="line"><span class="comment">其他每一项在数组中包含相邻的两项，包括功能定义和UUID的定义，UUID也可分为16位和128位，如果为16位UUID（例0x1234），那最终UUID为0x0000 1234 0000 0000 0000 0000 0000 0000与系统默认UUID相或的结果；若为指定的128位UUID，则需将服务列表数组UUID元素结构体的标签指定使用128位UUID（例ATTRIB_FLAG_UUID_128BIT|ATTRIB_FLAG_VALUE_APPL）</span></span><br><span class="line"><span class="comment">notifuy和indicate功能元素的定义则多了功能使能一项，其他与上面一致</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> T_ATTRIB_APPL uart_ble_service_tbl[] =</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* &lt;&lt;Primary Service&gt;&gt;, .. */</span></span><br><span class="line">    &#123;</span><br><span class="line">        (ATTRIB_FLAG_VOID | ATTRIB_FLAG_LE),  <span class="comment">/* flags     */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_PRIMARY_SERVICE),</span><br><span class="line">            HI_WORD(GATT_UUID_PRIMARY_SERVICE),</span><br><span class="line">        &#125;,</span><br><span class="line">        UUID_128BIT_SIZE,                            <span class="comment">/* bValueLen     */</span></span><br><span class="line">        (<span class="keyword">void</span> *)GATT_UUID_UART_SERVICE,                                       <span class="comment">/* p_value_context */</span></span><br><span class="line">        GATT_PERM_READ                              <span class="comment">/* permissions  */</span></span><br><span class="line">    &#125;,</span><br><span class="line">#<span class="keyword">if</span> <span class="number">0</span></span><br><span class="line">    <span class="comment">/* &lt;&lt;Characteristic&gt;&gt; demo for read */</span></span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_INCL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            HI_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            GATT_CHAR_PROP_READ                     <span class="comment">/* characteristic properties */</span></span><br><span class="line">            <span class="comment">/* characteristic UUID not needed here, is UUID of next attrib. */</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">1</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        GATT_PERM_READ                              <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_APPL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHAR_UART_V1_READ),</span><br><span class="line">            HI_WORD(GATT_UUID_CHAR_UART_V1_READ)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">0</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">#<span class="keyword">if</span> SIMP_SRV_AUTHEN_EN</span><br><span class="line">        GATT_PERM_READ_AUTHEN_REQ                   <span class="comment">/* permissions */</span></span><br><span class="line">#<span class="keyword">else</span></span><br><span class="line">        GATT_PERM_READ                              <span class="comment">/* permissions */</span></span><br><span class="line">#endif</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VOID | ATTRIB_FLAG_ASCII_Z,     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHAR_USER_DESCR),</span><br><span class="line">            HI_WORD(GATT_UUID_CHAR_USER_DESCR),</span><br><span class="line">        &#125;,</span><br><span class="line">        (<span class="keyword">sizeof</span>(uart_user_descr) - <span class="number">1</span>),                                           <span class="comment">/* bValueLen */</span></span><br><span class="line">        (<span class="keyword">void</span> *)uart_user_descr,</span><br><span class="line">        GATT_PERM_READ           <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">#endif</span><br><span class="line">    <span class="comment">/* &lt;&lt;Characteristic&gt;&gt; demo for write */</span></span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_INCL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            HI_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            (GATT_CHAR_PROP_WRITE | GATT_CHAR_PROP_WRITE_NO_RSP) <span class="comment">/* characteristic properties */</span></span><br><span class="line">            <span class="comment">/* characteristic UUID not needed here, is UUID of next attrib. */</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">1</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        GATT_PERM_READ                              <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_UUID_128BIT|ATTRIB_FLAG_VALUE_APPL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;</span><br><span class="line">        	<span class="number">0x9E</span>,</span><br><span class="line">        	<span class="number">0xCA</span>,</span><br><span class="line">        	<span class="number">0xDC</span>,</span><br><span class="line">        	<span class="number">0x24</span>,</span><br><span class="line">        	<span class="number">0x0E</span>,</span><br><span class="line">        	<span class="number">0xE5</span>,</span><br><span class="line">        	<span class="number">0xA9</span>,</span><br><span class="line">        	<span class="number">0xE0</span>,</span><br><span class="line">        	<span class="number">0x93</span>,</span><br><span class="line">        	<span class="number">0xF3</span>,</span><br><span class="line">        	<span class="number">0xA3</span>,</span><br><span class="line">        	<span class="number">0xB5</span>,</span><br><span class="line">        	<span class="number">0x02</span>,</span><br><span class="line">        	<span class="number">0x00</span>,</span><br><span class="line">        	<span class="number">0x40</span>,</span><br><span class="line">        	<span class="number">0x6E</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">0</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">#<span class="keyword">if</span> SIMP_SRV_AUTHEN_EN</span><br><span class="line">        GATT_PERM_WRITE_AUTHEN_REQ                  <span class="comment">/* permissions */</span></span><br><span class="line">#<span class="keyword">else</span></span><br><span class="line">        GATT_PERM_WRITE                             <span class="comment">/* permissions */</span></span><br><span class="line">#endif</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/* &lt;&lt;Characteristic&gt;&gt;, demo for notify */</span></span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_INCL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                          <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            HI_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            (GATT_CHAR_PROP_NOTIFY)                 <span class="comment">/* characteristic properties */</span></span><br><span class="line">            <span class="comment">/* characteristic UUID not needed here, is UUID of next attrib. */</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">1</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        GATT_PERM_READ                              <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_UUID_128BIT|ATTRIB_FLAG_VALUE_APPL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;</span><br><span class="line">        	<span class="number">0x9E</span>,</span><br><span class="line">        	<span class="number">0xCA</span>,</span><br><span class="line">        	<span class="number">0xDC</span>,</span><br><span class="line">        	<span class="number">0x24</span>,</span><br><span class="line">        	<span class="number">0x0E</span>,</span><br><span class="line">        	<span class="number">0xE5</span>,</span><br><span class="line">        	<span class="number">0xA9</span>,</span><br><span class="line">        	<span class="number">0xE0</span>,</span><br><span class="line">        	<span class="number">0x93</span>,</span><br><span class="line">        	<span class="number">0xF3</span>,</span><br><span class="line">        	<span class="number">0xA3</span>,</span><br><span class="line">        	<span class="number">0xB5</span>,</span><br><span class="line">        	<span class="number">0x03</span>,</span><br><span class="line">        	<span class="number">0x00</span>,</span><br><span class="line">        	<span class="number">0x40</span>,</span><br><span class="line">        	<span class="number">0x6E</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">0</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        GATT_PERM_NONE                              <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/* client characteristic configuration */</span></span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_INCL | ATTRIB_FLAG_CCCD_APPL,                 <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                          <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHAR_CLIENT_CONFIG),</span><br><span class="line">            HI_WORD(GATT_UUID_CHAR_CLIENT_CONFIG),</span><br><span class="line">            <span class="comment">/* <span class="doctag">NOTE:</span> this value has an instantiation for each client, a write to */</span></span><br><span class="line">            <span class="comment">/* this attribute does not modify this default value:                */</span></span><br><span class="line">            LO_WORD(GATT_CLIENT_CHAR_CONFIG_DEFAULT), <span class="comment">/* client char. config. bit field */</span></span><br><span class="line">            HI_WORD(GATT_CLIENT_CHAR_CONFIG_DEFAULT)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">2</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">#<span class="keyword">if</span> SIMP_SRV_AUTHEN_EN</span><br><span class="line">        (GATT_PERM_READ_AUTHEN_REQ | GATT_PERM_WRITE_AUTHEN_REQ) <span class="comment">/* permissions */</span></span><br><span class="line">#<span class="keyword">else</span></span><br><span class="line">        (GATT_PERM_READ | GATT_PERM_WRITE)          <span class="comment">/* permissions */</span></span><br><span class="line">#endif</span><br><span class="line">    &#125;,</span><br><span class="line">#<span class="keyword">if</span> <span class="number">0</span></span><br><span class="line">    <span class="comment">/* &lt;&lt;Characteristic&gt;&gt; demo for indicate */</span></span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_INCL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            HI_WORD(GATT_UUID_CHARACTERISTIC),</span><br><span class="line">            (GATT_CHAR_PROP_INDICATE)               <span class="comment">/* characteristic properties */</span></span><br><span class="line">            <span class="comment">/* characteristic UUID not needed here, is UUID of next attrib. */</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">1</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        GATT_PERM_READ                              <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_APPL,                     <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                           <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHAR_UART_V4_INDICATE),</span><br><span class="line">            HI_WORD(GATT_UUID_CHAR_UART_V4_INDICATE)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">0</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">        GATT_PERM_NONE                              <span class="comment">/* permissions */</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/* client characteristic configuration */</span></span><br><span class="line">    &#123;</span><br><span class="line">        ATTRIB_FLAG_VALUE_INCL | ATTRIB_FLAG_CCCD_APPL,                 <span class="comment">/* flags */</span></span><br><span class="line">        &#123;                                         <span class="comment">/* type_value */</span></span><br><span class="line">            LO_WORD(GATT_UUID_CHAR_CLIENT_CONFIG),</span><br><span class="line">            HI_WORD(GATT_UUID_CHAR_CLIENT_CONFIG),</span><br><span class="line">            <span class="comment">/* <span class="doctag">NOTE:</span> this value has an instantiation for each client, a write to */</span></span><br><span class="line">            <span class="comment">/* this attribute does not modify this default value:                */</span></span><br><span class="line">            LO_WORD(GATT_CLIENT_CHAR_CONFIG_DEFAULT), <span class="comment">/* client char. config. bit field */</span></span><br><span class="line">            HI_WORD(GATT_CLIENT_CHAR_CONFIG_DEFAULT)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="number">2</span>,                                          <span class="comment">/* bValueLen */</span></span><br><span class="line">        <span class="literal">NULL</span>,</span><br><span class="line">#<span class="keyword">if</span> SIMP_SRV_AUTHEN_EN</span><br><span class="line">        (GATT_PERM_READ_AUTHEN_REQ | GATT_PERM_WRITE_AUTHEN_REQ) <span class="comment">/* permissions */</span></span><br><span class="line">#<span class="keyword">else</span></span><br><span class="line">        (GATT_PERM_READ | GATT_PERM_WRITE)          <span class="comment">/* permissions */</span></span><br><span class="line">#endif</span><br><span class="line">    &#125;,</span><br><span class="line">#endif</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Set service related data from application.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in] param_type            parameter type to set.</span></span><br><span class="line"><span class="comment">  * @param[in] len                   value length to be set.</span></span><br><span class="line"><span class="comment">  * @param[in] p_value             value to set.</span></span><br><span class="line"><span class="comment">  * @return parameter set result.</span></span><br><span class="line"><span class="comment">  * @retval 0 false</span></span><br><span class="line"><span class="comment">  * @retval 1 true</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uart_ble_service_set_parameter</span><span class="params">(T_UART_PARAM_TYPE param_type, <span class="keyword">uint16_t</span> len, <span class="keyword">void</span> *p_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">bool</span> ret = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (param_type)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        ret = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> UART_BLE_SERVICE_PARAM_V1_READ_CHAR_VAL:</span><br><span class="line">        <span class="keyword">if</span> (len &lt;= UART_READ_V1_MAX_LEN)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">memcpy</span>(uart_char_read_value, p_value, len);</span><br><span class="line">            uart_char_read_len = len;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ret = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!ret)</span><br><span class="line">    &#123;</span><br><span class="line">        APP_PRINT_ERROR0(<span class="string">&quot;uart_ble_service_set_parameter failed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief read characteristic data from service.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param service_id          ServiceID of characteristic data.</span></span><br><span class="line"><span class="comment"> * @param attrib_index        Attribute index of getting characteristic data.</span></span><br><span class="line"><span class="comment"> * @param offset              Used for Blob Read.</span></span><br><span class="line"><span class="comment"> * @param p_length            length of getting characteristic data.</span></span><br><span class="line"><span class="comment"> * @param pp_value            data got from service.</span></span><br><span class="line"><span class="comment"> * @return Profile procedure result</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">T_APP_RESULT  <span class="title">uart_ble_service_attr_read_cb</span><span class="params">(<span class="keyword">uint8_t</span> conn_id, T_SERVER_ID service_id,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            <span class="keyword">uint16_t</span> attrib_index, <span class="keyword">uint16_t</span> offset, <span class="keyword">uint16_t</span> *p_length, <span class="keyword">uint8_t</span> **pp_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T_APP_RESULT  cause  = APP_RESULT_SUCCESS;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (attrib_index)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        APP_PRINT_ERROR1(<span class="string">&quot;uart_ble_service_attr_read_cb, Attr not found, index %d&quot;</span>, attrib_index);</span><br><span class="line">        cause = APP_RESULT_ATTR_NOT_FOUND;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> UART_BLE_SERVICE_CHAR_V1_READ_INDEX:</span><br><span class="line">        &#123;</span><br><span class="line">            TUART_CALLBACK_DATA callback_data;</span><br><span class="line">            callback_data.msg_type = SERVICE_CALLBACK_TYPE_READ_CHAR_VALUE;</span><br><span class="line">            callback_data.msg_data.read_value_index = UART_READ_V1;</span><br><span class="line">            callback_data.conn_id = conn_id;</span><br><span class="line">            <span class="keyword">if</span> (pfn_uart_ble_service_cb)</span><br><span class="line">            &#123;</span><br><span class="line">                pfn_uart_ble_service_cb(service_id, (<span class="keyword">void</span> *)&amp;callback_data);</span><br><span class="line">            &#125;</span><br><span class="line">            *pp_value = uart_char_read_value;</span><br><span class="line">            *p_length = uart_char_read_len;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (cause);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">uart_write_post_callback</span><span class="params">(<span class="keyword">uint8_t</span> conn_id, T_SERVER_ID service_id, <span class="keyword">uint16_t</span> attrib_index,</span></span></span><br><span class="line"><span class="function"><span class="params">                                <span class="keyword">uint16_t</span> length, <span class="keyword">uint8_t</span> *p_value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    APP_PRINT_INFO4(<span class="string">&quot;uart_write_post_callback: conn_id %d, service_id %d, attrib_index 0x%x, length %d&quot;</span>,</span><br><span class="line">                    conn_id, service_id, attrib_index, length);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief write characteristic data from service.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param conn_id</span></span><br><span class="line"><span class="comment"> * @param service_id        ServiceID to be written.</span></span><br><span class="line"><span class="comment"> * @param attrib_index      Attribute index of characteristic.</span></span><br><span class="line"><span class="comment"> * @param length            length of value to be written.</span></span><br><span class="line"><span class="comment"> * @param p_value           value to be written.</span></span><br><span class="line"><span class="comment"> * @return Profile procedure result</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">T_APP_RESULT <span class="title">uart_ble_service_attr_write_cb</span><span class="params">(<span class="keyword">uint8_t</span> conn_id, T_SERVER_ID service_id,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            <span class="keyword">uint16_t</span> attrib_index, T_WRITE_TYPE write_type, <span class="keyword">uint16_t</span> length, <span class="keyword">uint8_t</span> *p_value,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            P_FUN_WRITE_IND_POST_PROC *p_write_ind_post_proc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TUART_CALLBACK_DATA callback_data;</span><br><span class="line">    T_APP_RESULT  cause = APP_RESULT_SUCCESS;</span><br><span class="line">    APP_PRINT_INFO1(<span class="string">&quot;uart_ble_service_attr_write_cb write_type = 0x%x&quot;</span>, write_type);</span><br><span class="line">    *p_write_ind_post_proc = uart_write_post_callback;</span><br><span class="line">    <span class="keyword">if</span> (UART_BLE_SERVICE_CHAR_V2_WRITE_INDEX == attrib_index)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Make sure written value size is valid. */</span></span><br><span class="line">        <span class="keyword">if</span> (p_value == <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            cause  = APP_RESULT_INVALID_VALUE_SIZE;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">strncmp</span>(p_value, <span class="string">&quot;Parse.test&quot;</span>, length) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				BLE_PRINTF(<span class="string">&quot;BLE CMD TEST: %s, %d&quot;</span>, p_value, length);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strncmp</span>(p_value, <span class="string">&quot;Parse.dis&quot;</span>, length) == <span class="number">0</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				le_bond_clear_all_keys();<span class="comment">//在某些手机上面运行nRF UART2.0连接设备，在断开连接后，手机端不会主动和ble uart服务解绑，导致该手机无法在搜索到该设备，所以可以使用该指令，主动解绑连接的服务和断开连接。</span></span><br><span class="line">				ble_disconnect();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* Notify Application. */</span></span><br><span class="line">            callback_data.msg_type = SERVICE_CALLBACK_TYPE_WRITE_CHAR_VALUE;</span><br><span class="line">            callback_data.conn_id  = conn_id;</span><br><span class="line">            callback_data.msg_data.write.opcode = UART_WRITE_V2;</span><br><span class="line">            callback_data.msg_data.write.write_type = write_type;</span><br><span class="line">            callback_data.msg_data.write.len = length;</span><br><span class="line">            callback_data.msg_data.write.p_value = p_value;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (pfn_uart_ble_service_cb)</span><br><span class="line">            &#123;</span><br><span class="line">                pfn_uart_ble_service_cb(service_id, (<span class="keyword">void</span> *)&amp;callback_data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        APP_PRINT_ERROR2(<span class="string">&quot;uart_ble_service_attr_write_cb Error: attrib_index 0x%x, length %d&quot;</span>,</span><br><span class="line">                         attrib_index,</span><br><span class="line">                         length);</span><br><span class="line">        cause = APP_RESULT_ATTR_NOT_FOUND;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cause;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief send notification of simple notify characteristic value.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in] conn_id           connection id</span></span><br><span class="line"><span class="comment">  * @param[in] service_id        service ID of service.</span></span><br><span class="line"><span class="comment">  * @param[in] p_value           characteristic value to notify</span></span><br><span class="line"><span class="comment">  * @param[in] length            characteristic value length to notify</span></span><br><span class="line"><span class="comment">  * @return notification action result</span></span><br><span class="line"><span class="comment">  * @retval 1 true</span></span><br><span class="line"><span class="comment">  * @retval 0 false</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uart_ble_service_send_v3_notify</span><span class="params">(<span class="keyword">void</span> *p_value, <span class="keyword">uint16_t</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    APP_PRINT_INFO0(<span class="string">&quot;uart_ble_service_send_v3_notify&quot;</span>);</span><br><span class="line">    <span class="comment">// send notification to client</span></span><br><span class="line">    <span class="keyword">return</span> server_send_data(g_gap_connect_id, uart_service_id, UART_BLE_SERVICE_CHAR_V3_NOTIFY_INDEX, p_value,</span><br><span class="line">                            length,</span><br><span class="line">                            GATT_PDU_TYPE_NOTIFICATION);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief send indication of simple indicate characteristic value.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in] conn_id           connection id</span></span><br><span class="line"><span class="comment">  * @param[in] service_id        service ID of service.</span></span><br><span class="line"><span class="comment">  * @param[in] p_value           characteristic value to notify</span></span><br><span class="line"><span class="comment">  * @param[in] length            characteristic value length to notify</span></span><br><span class="line"><span class="comment">  * @return notification action result</span></span><br><span class="line"><span class="comment">  * @retval 1 true</span></span><br><span class="line"><span class="comment">  * @retval 0 false</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uart_ble_service_send_v4_indicate</span><span class="params">(<span class="keyword">uint8_t</span> conn_id, T_SERVER_ID service_id, <span class="keyword">void</span> *p_value,</span></span></span><br><span class="line"><span class="function"><span class="params">                                       <span class="keyword">uint16_t</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    APP_PRINT_INFO0(<span class="string">&quot;uart_ble_service_send_v4_indicate&quot;</span>);</span><br><span class="line">    <span class="comment">// send indication to client</span></span><br><span class="line">    <span class="keyword">return</span> server_send_data(conn_id, service_id, UART_BLE_SERVICE_CHAR_V4_INDICATE_INDEX, p_value,</span><br><span class="line">                            length, GATT_PDU_TYPE_ANY);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief update CCCD bits from stack.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param conn_id           connection id.</span></span><br><span class="line"><span class="comment"> * @param service_id          Service ID.</span></span><br><span class="line"><span class="comment"> * @param index          Attribute index of characteristic data.</span></span><br><span class="line"><span class="comment"> * @param cccbits         CCCD bits from stack.</span></span><br><span class="line"><span class="comment"> * @return None</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">uart_ble_service_cccd_update_cb</span><span class="params">(<span class="keyword">uint8_t</span> conn_id, T_SERVER_ID service_id, <span class="keyword">uint16_t</span> index,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     <span class="keyword">uint16_t</span> cccbits)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TUART_CALLBACK_DATA callback_data;</span><br><span class="line">    <span class="keyword">bool</span> is_handled = <span class="literal">false</span>;</span><br><span class="line">    callback_data.conn_id = conn_id;</span><br><span class="line">    callback_data.msg_type = SERVICE_CALLBACK_TYPE_INDIFICATION_NOTIFICATION;</span><br><span class="line">    APP_PRINT_INFO2(<span class="string">&quot;uart_ble_service_cccd_update_cb: index = %d, cccbits 0x%x&quot;</span>, index, cccbits);</span><br><span class="line">    <span class="keyword">switch</span> (index)</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="keyword">case</span> UART_BLE_SERVICE_CHAR_NOTIFY_CCCD_INDEX:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cccbits &amp; GATT_CLIENT_CHAR_CONFIG_NOTIFY)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Enable Notification</span></span><br><span class="line">                callback_data.msg_data.notification_indification_index = UART_NOTIFY_INDICATE_V3_ENABLE;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Disable Notification</span></span><br><span class="line">                callback_data.msg_data.notification_indification_index = UART_NOTIFY_INDICATE_V3_DISABLE;</span><br><span class="line">            &#125;</span><br><span class="line">            is_handled =  <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">    <span class="keyword">case</span> UART_BLE_SERVICE_CHAR_INDICATE_CCCD_INDEX:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (cccbits &amp; GATT_CLIENT_CHAR_CONFIG_INDICATE)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Enable Indication</span></span><br><span class="line">                callback_data.msg_data.notification_indification_index = UART_NOTIFY_INDICATE_V4_ENABLE;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Disable Indication</span></span><br><span class="line">                callback_data.msg_data.notification_indification_index = UART_NOTIFY_INDICATE_V4_DISABLE;</span><br><span class="line">            &#125;</span><br><span class="line">            is_handled =  <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">	<span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* Notify Application. */</span></span><br><span class="line">    <span class="keyword">if</span> (pfn_uart_ble_service_cb &amp;&amp; (is_handled == <span class="literal">true</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        pfn_uart_ble_service_cb(service_id, (<span class="keyword">void</span> *)&amp;callback_data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">采用可变参数列表</span></span><br><span class="line"><span class="comment">格式化输出字符串</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">nus_data_printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *fmt, ...)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_SEND_SIZE 	18</span></span><br><span class="line">    va_list arg;</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">50</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 1</span></span><br><span class="line">    va_start(arg, fmt);</span><br><span class="line">    cnt = vsnprintf(buf, <span class="keyword">sizeof</span>(buf), fmt, arg);</span><br><span class="line"><span class="comment">//生成的字符串的长度至多为n-1，为额外的终止空字符留下空间。</span></span><br><span class="line">    va_end(arg);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    va_start(arg, fmt);</span><br><span class="line">    cnt = <span class="built_in">vsprintf</span>(buf, <span class="keyword">sizeof</span>(buf)/<span class="keyword">sizeof</span>(buf[<span class="number">0</span>]), fmt, arg);</span><br><span class="line">    va_end(arg);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	BT_DEBUG(<span class="string">&quot;%s, %d&quot;</span>, buf, cnt);</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> send_len = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i+=send_len)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>((cnt - i) &gt; MAX_SEND_SIZE)</span><br><span class="line">		&#123;</span><br><span class="line">			send_len = MAX_SEND_SIZE;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			send_len = cnt-i;</span><br><span class="line">		&#125;</span><br><span class="line">		uart_ble_service_send_v3_notify(buf+i, send_len);</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief Simple ble Service Callbacks.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> T_FUN_GATT_SERVICE_CBS uart_ble_service_cbs =</span><br><span class="line">&#123;</span><br><span class="line">    uart_ble_service_attr_read_cb,  <span class="comment">// Read callback function pointer</span></span><br><span class="line">    uart_ble_service_attr_write_cb, <span class="comment">// Write callback function pointer</span></span><br><span class="line">    uart_ble_service_cccd_update_cb <span class="comment">// CCCD update callback function pointer</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief Add simple BLE service to the BLE stack database.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in]   p_func  Callback when service attribute was read, write or cccd update.</span></span><br><span class="line"><span class="comment">  * @return Service id generated by the BLE stack: @ref T_SERVER_ID.</span></span><br><span class="line"><span class="comment">  * @retval 0xFF Operation failure.</span></span><br><span class="line"><span class="comment">  * @retval others Service id assigned by stack.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function">T_SERVER_ID <span class="title">uart_ble_service_add_service</span><span class="params">(<span class="keyword">void</span> *p_func)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">false</span> == server_add_service(&amp;uart_service_id,</span><br><span class="line">                                    (<span class="keyword">uint8_t</span> *)uart_ble_service_tbl,</span><br><span class="line">                                    <span class="keyword">sizeof</span>(uart_ble_service_tbl),</span><br><span class="line">                                    uart_ble_service_cbs))</span><br><span class="line">    &#123;</span><br><span class="line">        APP_PRINT_ERROR0(<span class="string">&quot;uart_ble_service_add_service: fail&quot;</span>);</span><br><span class="line">        uart_service_id = <span class="number">0xff</span>;</span><br><span class="line">        <span class="keyword">return</span> uart_service_id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pfn_uart_ble_service_cb = (P_FUN_SERVER_GENERAL_CB)p_func;</span><br><span class="line">    <span class="keyword">return</span> uart_service_id;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>BLE_UART.h</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*****************************************************************************************</span></span><br><span class="line"><span class="comment">*     Copyright(c) 2017, Realtek Semiconductor Corporation. All rights reserved.</span></span><br><span class="line"><span class="comment">*****************************************************************************************</span></span><br><span class="line"><span class="comment">  * @file     simple_ble_service.h</span></span><br><span class="line"><span class="comment">  * @brief    Demonstration of how to implement a self-definition service.</span></span><br><span class="line"><span class="comment">  * @details  Demonstration of different kinds of service interfaces.</span></span><br><span class="line"><span class="comment">  * @author</span></span><br><span class="line"><span class="comment">  * @date</span></span><br><span class="line"><span class="comment">  * @version</span></span><br><span class="line"><span class="comment">  * *************************************************************************************</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Define to prevent recursive inclusion */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _UART_BLE_SERVICE_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _UART_BLE_SERVICE_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span>  &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>      <span class="comment">/* __cplusplus */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Add Includes here */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;profile_server.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BLE_UART_ENABLE								1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GATT_UUID_UART_PROFILE                    0x0001</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GATT_UUID_CHAR_UART_V1_READ               0xB001</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GATT_UUID_CHAR_UART_V2_WRITE              0x0002</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GATT_UUID_CHAR_UART_V3_NOTIFY             0x0003</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> GATT_UUID_CHAR_UART_V4_INDICATE           0xB004</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service Simple Ble Service</span></span><br><span class="line"><span class="comment">  * @brief Simple BLE service</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="comment">/*============================================================================*</span></span><br><span class="line"><span class="comment"> *                              Macros</span></span><br><span class="line"><span class="comment"> *============================================================================*/</span></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Exported_Macros SIMP Service Exported Macros</span></span><br><span class="line"><span class="comment">  * @brief</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Application_Parameters SIMP Service Application Parameters</span></span><br><span class="line"><span class="comment">  * @brief  Type of parameters set/got from application.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span></span><br><span class="line">&#123;</span><br><span class="line">    UART_BLE_SERVICE_PARAM_V1_READ_CHAR_VAL = <span class="number">0x01</span>,</span><br><span class="line">&#125; T_UART_PARAM_TYPE;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Upstream_Message SIMP Service Upstream Message</span></span><br><span class="line"><span class="comment">  * @brief  Upstream message used to inform application.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Read_Info SIMP Service Read Info</span></span><br><span class="line"><span class="comment">  * @brief  Parameter for reading characteristic value.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_READ_V1                                        1</span></span><br><span class="line"><span class="comment">/** @&#125; */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Write_Info SIMP Service Write Info</span></span><br><span class="line"><span class="comment">  * @brief  Parameter for writing characteristic value.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_WRITE_V2                                       1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Notify_Indicate_Info SIMP Service Notify Indicate Info</span></span><br><span class="line"><span class="comment">  * @brief  Parameter for enable or disable notification or indication.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_NOTIFY_INDICATE_V3_ENABLE     1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_NOTIFY_INDICATE_V3_DISABLE    2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_NOTIFY_INDICATE_V4_ENABLE     3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_NOTIFY_INDICATE_V4_DISABLE    4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> UART_READ_V1_MAX_LEN               300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; End of SIMP_Service_Upstream_Message */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; End of SIMP_Service_Exported_Macros */</span></span><br><span class="line"><span class="comment">/*============================================================================*</span></span><br><span class="line"><span class="comment"> *                              Types</span></span><br><span class="line"><span class="comment"> *============================================================================*/</span></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Exported_Types SIMP Service Exported Types</span></span><br><span class="line"><span class="comment">  * @brief</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup TSIMP_WRITE_MSG TSIMP_WRITE_MSG</span></span><br><span class="line"><span class="comment">  * @brief Simple BLE service written msg to application.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">uint8_t</span> opcode; <span class="comment">//!&lt; ref:  @ref SIMP_Service_Write_Info</span></span><br><span class="line">    T_WRITE_TYPE write_type;</span><br><span class="line">    <span class="keyword">uint16_t</span> len;</span><br><span class="line">    <span class="keyword">uint8_t</span> *p_value;</span><br><span class="line">&#125; TUART_WRITE_MSG;</span><br><span class="line"><span class="comment">/** @&#125; End of TSIMP_WRITE_MSG */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup TSIMP_UPSTREAM_MSG_DATA TSIMP_UPSTREAM_MSG_DATA</span></span><br><span class="line"><span class="comment">  * @brief Simple BLE service callback message content.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">uint8_t</span> notification_indification_index; <span class="comment">//!&lt; ref: @ref SIMP_Service_Notify_Indicate_Info</span></span><br><span class="line">    <span class="keyword">uint8_t</span> read_value_index; <span class="comment">//!&lt; ref: @ref SIMP_Service_Read_Info</span></span><br><span class="line">    TUART_WRITE_MSG write;</span><br><span class="line">&#125; TUART_UPSTREAM_MSG_DATA;</span><br><span class="line"><span class="comment">/** @&#125; End of TSIMP_UPSTREAM_MSG_DATA */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @defgroup TSIMP_CALLBACK_DATA TSIMP_CALLBACK_DATA</span></span><br><span class="line"><span class="comment">  * @brief Simple BLE service data to inform application.</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">uint8_t</span>                 conn_id;</span><br><span class="line">    T_SERVICE_CALLBACK_TYPE msg_type;</span><br><span class="line">    TUART_UPSTREAM_MSG_DATA msg_data;</span><br><span class="line">&#125; TUART_CALLBACK_DATA;</span><br><span class="line"><span class="comment">/** @&#125; End of TSIMP_CALLBACK_DATA */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; End of SIMP_Service_Exported_Types */</span></span><br><span class="line"><span class="comment">/*============================================================================*</span></span><br><span class="line"><span class="comment"> *                              Functions</span></span><br><span class="line"><span class="comment"> *============================================================================*/</span></span><br><span class="line"><span class="comment">/** @defgroup SIMP_Service_Exported_Functions SIMP Service Exported Functions</span></span><br><span class="line"><span class="comment">  * @brief</span></span><br><span class="line"><span class="comment">  * @&#123;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief Add simple BLE service to the BLE stack database.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in]   p_func  Callback when service attribute was read, write or cccd update.</span></span><br><span class="line"><span class="comment">  * @return Service id generated by the BLE stack: @ref T_SERVER_ID.</span></span><br><span class="line"><span class="comment">  * @retval 0xFF Operation failure.</span></span><br><span class="line"><span class="comment">  * @retval others Service id assigned by stack.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function">T_SERVER_ID <span class="title">uart_ble_service_add_service</span><span class="params">(<span class="keyword">void</span> *p_func)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  Set service related data from application.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in] param_type            parameter type to set.</span></span><br><span class="line"><span class="comment">  * @param[in] len                   value length to be set.</span></span><br><span class="line"><span class="comment">  * @param[in] p_value             value to set.</span></span><br><span class="line"><span class="comment">  * @return parameter set result.</span></span><br><span class="line"><span class="comment">  * @retval 0 false</span></span><br><span class="line"><span class="comment">  * @retval 1 true</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uart_ble_service_set_parameter</span><span class="params">(T_UART_PARAM_TYPE param_type, <span class="keyword">uint16_t</span> len, <span class="keyword">void</span> *p_value)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief send notification of simple notify characteristic value.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in] conn_id           connection id</span></span><br><span class="line"><span class="comment">  * @param[in] service_id        service ID of service.</span></span><br><span class="line"><span class="comment">  * @param[in] p_value           characteristic value to notify</span></span><br><span class="line"><span class="comment">  * @param[in] length            characteristic value length to notify</span></span><br><span class="line"><span class="comment">  * @return notification action result</span></span><br><span class="line"><span class="comment">  * @retval 1 true</span></span><br><span class="line"><span class="comment">  * @retval 0 false</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uart_ble_service_send_v3_notify</span><span class="params">(<span class="keyword">void</span> *p_value, <span class="keyword">uint16_t</span> length)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief send indication of simple indicate characteristic value.</span></span><br><span class="line"><span class="comment">  *</span></span><br><span class="line"><span class="comment">  * @param[in] conn_id           connection id</span></span><br><span class="line"><span class="comment">  * @param[in] service_id        service ID of service.</span></span><br><span class="line"><span class="comment">  * @param[in] p_value           characteristic value to notify</span></span><br><span class="line"><span class="comment">  * @param[in] length            characteristic value length to notify</span></span><br><span class="line"><span class="comment">  * @return notification action result</span></span><br><span class="line"><span class="comment">  * @retval 1 true</span></span><br><span class="line"><span class="comment">  * @retval 0 false</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">uart_ble_service_send_v4_indicate</span><span class="params">(<span class="keyword">uint8_t</span> conn_id, T_SERVER_ID service_id,</span></span></span><br><span class="line"><span class="function"><span class="params">                                       <span class="keyword">void</span> *p_value, <span class="keyword">uint16_t</span> length)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; End of SIMP_Service_Exported_Functions */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** @&#125; End of SIMP_Service */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">nus_data_printf</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *fmt, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* _SIMPLE_BLE_SERVICE_H_ */</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>利用宏转化为格式化字符串输出<br>##__VA_ARGS__ 宏前面加上##的作用在于，当可变参数的个数为0时，这里的##起到把前面多余的”,”去掉的作用,否则会编译出错</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> BLE_PRINTF_EN</span></span><br><span class="line">	<span class="meta">#<span class="meta-keyword">define</span> BLE_PRINTF(fmt, ...)			do&#123; nus_data_printf(fmt, ##__VA_ARGS__); &#125;while(0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">	<span class="meta">#<span class="meta-keyword">define</span>	BLE_PRINTF(fmt, ...)			do&#123; &#125;while(0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>  调试了两天基本把这部分代码调试通过，Nordic Uart软件可以正常识别ble uart服务，且正常收发数据，识别UART的关键就在于服务以及TX属性和RX属性的UUID，只要这几点配置正确，其他的参考例程基本没什么难点。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>纯属好玩</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">扫码打赏，你说多少就多少</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.png" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weixin.png" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/">realtek8762C BLE uart调试</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 闲客 的个人博客">闲客</a></p>
+        <p><span>发布时间:</span>2020年11月03日 - 11时36分</p>
+        <p><span>最后更新:</span>2020年11月14日 - 22时39分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/" title="realtek8762C BLE uart调试">http://xianke5200.github.io/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://xianke5200.github.io/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/　　作者: 闲客" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/27/%E8%AE%A4%E8%AF%86%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">认识操作系统</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B"><span class="toc-number">1.</span> <span class="toc-text">完整代码如下</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2020/10/27/%E8%AE%A4%E8%AF%86%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="下一篇: 认识操作系统">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/">realtek8762C BLE uart调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/27/%E8%AE%A4%E8%AF%86%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">认识操作系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/27/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/">进程和线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/22/%E5%9F%BA%E9%87%91%E6%8A%95%E8%B5%84%E5%A4%8D%E7%9B%98/">基金投资复盘</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/17/hexo%E6%97%A0%E6%B3%95%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE/">hexo无法外网访问</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/11/Python%E7%94%A8PIL%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E4%BF%A1%E6%81%AF/">Python用PIL获取图片信息</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/03/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%90%8E%E7%BB%AD/">Python爬取哔哩哔哩视频的相关信息后续</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/24/Python%E7%88%AC%E5%8F%96%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9%E8%A7%86%E9%A2%91%E7%9A%84%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E5%B9%B6%E4%BF%9D%E5%AD%98%E5%88%B0excel%E6%96%87%E6%A1%A3/">Python爬取哔哩哔哩视频的相关信息并保存到excel文档</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/24/python%20pyqt5%E5%BC%80%E5%8F%91%E5%B0%8F%E7%BB%93/">python pyqt5开发小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/19/%E8%8E%B7%E5%8F%96%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E5%90%8E%E9%93%BE%E6%8E%A5%E8%84%9A%E6%9C%AC%E4%B8%AD%E5%8F%98%E9%87%8F/">获取程序编译后链接脚本中变量</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/08/Ubuntu%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99error_unknown%20filesystem%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">Ubuntu启动报错未知文件系统错误</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/08/%E9%A1%B9%E7%9B%AE%E8%B0%83%E8%AF%95%E4%B8%80%E7%82%B9%E5%B0%8F%E7%BB%93/">项目调试一点小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/08/%E6%8F%90%E5%8D%87%E5%88%B7%E5%B1%8F%E9%80%9F%E5%BA%A6%EF%BC%8C%E9%99%8D%E4%BD%8E%E6%98%BE%E7%A4%BA%E6%B0%B4%E7%BA%B9%E6%95%88%E6%9E%9C%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/">提升刷屏速度，降低显示水纹效果的一点想法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">4412学习笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/">关于提升仿动态图显示速度的一点想法</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/">软件QSPI调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/21/csr8610%E8%B0%83%E8%AF%95%E5%B0%8F%E7%BB%93/">csr8610调试小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/12/Xmodem%E5%8D%8F%E8%AE%AE/">Xmodem协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/09/nrodic%E5%B7%A5%E5%85%B7%E6%8C%87%E4%BB%A4/">nrodic工具指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/08/emwin%E4%BB%8E%E5%A4%96%E9%83%A8flash%E4%B8%AD%E8%AF%BB%E5%8F%96bmp%E5%9B%BE%E7%89%87%E6%98%BE%E7%A4%BA/">emwin从外部flash中读取bmp图片显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/17/nrfgo%20studio%20%E8%BF%9E%E6%8E%A5jlink%EF%BC%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%EF%BC%8Crecover%E6%97%B6%E5%87%BA%E7%8E%B0cannot%20find%20or%20open%20jlinkarm.dll/">nrfgo studio 连接jlink，无法连接，recover时出现cannot find or open jlinkarm.dll</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/07/04/%E8%93%9D%E7%89%99%E5%9F%BA%E5%B8%A6%E4%B8%8E%E9%93%BE%E8%B7%AF%E6%8E%A7%E5%88%B6%E5%99%A8%E5%8D%8F%E8%AE%AE/">蓝牙基带与链路控制器协议</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83/">蓝牙射频协议规范</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/25/QT%E6%B7%BB%E5%8A%A0GPIB%E9%A9%B1%E5%8A%A8%E5%BA%93/">QT添加GPIB驱动库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/20/MT8852B%E6%B5%8B%E8%AF%95%E8%93%9D%E7%89%99%E5%B0%84%E9%A2%91%E7%89%B9%E6%80%A7/">MT8852B测试蓝牙射频特性</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2020 xianke5200
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+			
+				<span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>
+				<script>
+					var now = new Date(); 
+					function createtime() { 
+						var grt= new Date("10/14/2020 22:15:00");//在此处修改你的建站时间，格式：月/日/年 时:分:秒
+						now.setTime(now.getTime()+250); 
+						days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); 
+						hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); 
+						if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); 
+						mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;} 
+						seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); 
+						snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;} 
+						document.getElementById("timeDate").innerHTML = "本站已安全运行 "+dnum+" 天 "; 
+						document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; 
+					} 
+				setInterval("createtime()",250);
+				</script>
+				
+				
+                    <span> | </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" >本站到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+		(w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+		e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+		})(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+		_st('install','hT1kPi8g5-hzvAfv4xAq','2.0.0');
+      }
+    </script>
+
+  </div>
+  
+  <!--动态线条背景-->
+  <script type="text/javascript"
+  color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+  </script>
+  
+  <!--单击显示文字-->
+  <script type="text/javascript" src="/js/click_show_text.js"></script>
+
+  <!--单击烟花效果-->
+  <canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 999; pointer-events: none;"></canvas>
+  <script type="text/javascript" src="/js/mouse_fire.js"></script>
+  
+  <!--浏览器搞笑标题-->
+  <script type="text/javascript" src="/js/FunnyTitle.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-shuzuku"},"display":{"position":"left","width":50,"height":100},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+
+<!--单击爆炸效果-->
+<canvas %#class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" %#></canvas> 
+<script %#type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"%#></script> 
+<script %#type="text/javascript" src="/js/fireworks.js"%#></script>
