@@ -3,19 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>关于提升仿动态图显示速度的一点想法 | 闲客&#39;Blog</title>
+  <title>内存 | 闲客&#39;Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="典型的BMP图像文件由四部分组成">
+  <meta name="description" content="主存是一种非常重要的资源，不管存储器有多大，程序大小的增长速度比内存容量的增长速度要快很多。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于提升仿动态图显示速度的一点想法">
-<meta property="og:url" content="http://xianke5200.github.io/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/index.html">
+<meta property="og:title" content="内存">
+<meta property="og:url" content="http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/index.html">
 <meta property="og:site_name" content="闲客&#39;Blog">
-<meta property="og:description" content="典型的BMP图像文件由四部分组成">
+<meta property="og:description" content="主存是一种非常重要的资源，不管存储器有多大，程序大小的增长速度比内存容量的增长速度要快很多。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-06-27T09:18:49.000Z">
-<meta property="article:modified_time" content="2020-10-16T12:37:22.304Z">
+<meta property="og:image" content="http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/20210318191329.png">
+<meta property="og:image" content="http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/20210318191322.png">
+<meta property="og:image" content="http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/20210318191311.png">
+<meta property="article:published_time" content="2020-10-27T10:04:30.000Z">
+<meta property="article:modified_time" content="2021-03-18T11:19:44.042Z">
 <meta property="article:author" content="xianke5200">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/20210318191329.png">
   
     <link rel="alternative" href="/atom.xml" title="闲客&#39;Blog" type="application/atom+xml">
   
@@ -265,11 +269,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-关于提升仿动态图显示速度的一点想法" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-内存" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/" class="article-date">
-      <time datetime="2019-06-27T09:18:49.000Z" itemprop="datePublished">2019-06-27</time>
+      <a href="/2020/10/27/%E5%86%85%E5%AD%98/" class="article-date">
+      <time datetime="2020-10-27T10:04:30.000Z" itemprop="datePublished">2020-10-27</time>
 </a>
     </div>
   
@@ -282,7 +286,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      关于提升仿动态图显示速度的一点想法
+      内存
     </h1>
   
 
@@ -291,7 +295,7 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/%E9%A9%B1%E5%8A%A8/">驱动</a>
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
     </div>
 
 
@@ -303,8 +307,26 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>典型的BMP图像文件由四部分组成：<br>1：位图头文件数据结构，它包含BMP图像文件的类型、显示内容等信息；<br>2：位图信息数据结构，它包含有BMP图像的宽、高、压缩方法，以及定义颜色等信息；<br>3：调色板，这个部分是可选的，有些位图需要调色板，有些位图，比如真彩色图（24位的BMP）就不需要调色板；<br>4：位图数据，这部分的内容根据BMP位图使用的位数不同而不同，在24位图中直接使用RGB，而其他的小于24位的使用调色板中颜色索引值。<br>其中位图文件数据结构为14个字节，结构组成如下：<br>typedef struct tagBITMAPFILEHEADER<br>{<br>WORD bfType;//位图文件的类型，必须为BM(1-2字节）<br>DWORD bfSize;//位图文件的大小，以字节为单位（3-6字节，低位在前）<br>WORD bfReserved1;//位图文件保留字，必须为0(7-8字节）<br>WORD bfReserved2;//位图文件保留字，必须为0(9-10字节）<br>DWORD bfOffBits;//位图数据的起始位置，以相对于位图（11-14字节，低位在前）<br>//文件头的偏移量表示，以字节为单位<br>}attribute((packed)) BITMAPFILEHEADER;<br>在32位MCU中要注意字节对齐，否则读取出来的数据可能会对不上，该结构体中的bfsize元素，代表的是整个bmp文件的大小，也就是bmp文件4个部分的总大小。<br>位图信息数据结构位40个字节，结构组成如下：<br>typedef struct tagBITMAPINFOHEADER<br>{<br>DWORD biSize;//本结构所占用字节数（15-18字节）<br>LONG biWidth;//位图的宽度，以像素为单位（19-22字节）<br>LONG biHeight;//位图的高度，以像素为单位（23-26字节）<br>WORD biPlanes;//目标设备的级别，必须为1(27-28字节）<br>WORD biBitCount;//每个像素所需的位数，必须是1（双色），（29-30字节）<br>//4(16色），8(256色）16(高彩色)或24（真彩色）之一<br>DWORD biCompression;//位图压缩类型，必须是0（不压缩），（31-34字节）<br>//1(BI_RLE8压缩类型）或2(BI_RLE4压缩类型）之一<br>DWORD biSizeImage;//位图的大小(其中包含了为了补齐行数是4的倍数而添加的空字节)，以字节为单位（35-38字节）<br>LONG biXPelsPerMeter;//位图水平分辨率，每米像素数（39-42字节）<br>LONG biYPelsPerMeter;//位图垂直分辨率，每米像素数（43-46字节)<br>DWORD biClrUsed;//位图实际使用的颜色表中的颜色数（47-50字节）<br>DWORD biClrImportant;//位图显示过程中重要的颜色数（51-54字节）<br>}attribute((packed)) BITMAPINFOHEADER;<br>有颜色表的bmp文件中，颜色表的大小一般位16个字节。<br>位图数据：<br>         一般位图数据的记录顺序是从左到右，从下到上，所以图片的有效数据是倒着存储的，也就是第一行的数据一般在文件的最末尾，最后一行数据在文件的颜色表的后面，所以当我们调用ucgui的显示函数画图时，uigui的内部函数是，从文件底部数据开始一行一行的读取，然后显示在屏幕上，但是这样速度会比较慢；而且图片数据是以四字节对齐的，而且当图片的宽度为奇数，图片数据每行后面补零，保证数据是四字节对齐，这时ucgui内部会对这些补齐的数据进行处理，这同样会造成时间的浪费。<br>         我们可以自己编写一个读取函数，先读取两个文件结构的信息，得到每帧bmp图片的大小，宽度，高度，数据偏移量，然后再根据数据偏移量读取图片有效数据，这时我们可以一次读取多行数据，因为每行数据量是相等的，所以我们也很容易对补零的数据进行处理，这样就可以显著提升仿动态图的显示效果，防止刷屏水纹的出现。</p>
-
+        <p><img src="/2020/10/27/%E5%86%85%E5%AD%98/20210318191329.png" alt="20210318191329"></p>
+<p>  主存是一种非常重要的资源，不管存储器有多大，程序大小的增长速度比内存容量的增长速度要快很多。<a id="more"></a><br>  经过多年的研究发现，科学家提出了一种分层存储器体系，从顶层先下一次为寄存器、高速缓存、主存和磁盘；位于顶层的存储器速度最快，但是容量最小，成本非常高，层级结构向下其访问速度会变慢，但是容量会变大，相对造价也就越便宜。操作系统中管理内存层次结构的部分称为内存管理器，主要是有效地管理内存，记录那些内存是正在使用的，在进程需要时分配内存以及在晋城完成时回收内存。</p>
+<h1 id="无存储器抽象"><a href="#无存储器抽象" class="headerlink" title="无存储器抽象"></a>无存储器抽象</h1><p>  最简单的存储器抽象是无存储器。每一个程序都直接访问物理内存。所以这种情况计算机不可能会有两个应用程序在内存中。<br>  不过即使存储器模型就是物理内存，还是存在一些可变体的，下面展示了三种变体：<br>  <img src="/2020/10/27/%E5%86%85%E5%AD%98/20210318191322.png" alt="20210318191322"><br>  模型a和c的缺点是用户程序中的错误可能会破坏操作系统，导致灾难性的后果。<br>  按照这种方式组织系统时，通常一个时刻只能有一个进程在运行。<br>  在没有存储器抽象的系统中实现并行性，一种方式是使用多线程来变成。由于同一进程中的多线程内部共享同一内存映像，那么实现并行也就不是什么问题了。但是人们通常希望能够在同一时间内运行没有关联的程序，这是线程抽象所不能提供的。</p>
+<h2 id="运行多个程序"><a href="#运行多个程序" class="headerlink" title="运行多个程序"></a>运行多个程序</h2><p>  即便没有存储器抽象，同时运行多个程序也是有可能的。操作系统只需要把当前内存中的所有内容保存到磁盘文件中，再把程序读入内存即可。只要某一时刻内存只有一个程序在运行就不会有冲突的情况发生。<br>  在额外特殊硬件的帮助下，即使没有交换功能，也可以并行运行多个应用程序。<br>在IBM360中，内存被划分为2KB的区域块，每块区域被分配一个4位的保护键，保护键存储在CPU的特殊寄存器中，一个内存为1MB的机器只需要512个这样的4位寄存器，容量为256字节PSW中有一个4位码。一个运行中的进程如果访问键与其PSW中保存的码不同，360硬件会捕获这种情况，只有操作系统可以修改保护键，这样可以防止进程之间、用户进程和操作系统之间的干扰。<br> 但是这种解决方式有一个缺陷，当两个应用程序都引用绝对地址物理地址，并且都引用同一个物理地址时，其中一个应用程序会执行错误的操作指令。可以采用一种称为静态重定位的技术来修改它。当一个程序被加载到16384地址时，常数16384被加到每一个程序地址上（即每一个被程序引用的物理地址都加上16384）。这种机制在不出错误的情况下是可行的，但不是一种通用的解决方式，同时会减慢装载速度，而且，她需要所有可执行程序中的额外信息，以指示哪些包含（可重定位的地址），哪些不包含。类似MOV REGISTER1, 28会把数字移到REGISTE中则不会重定向。所以装载器需要一定的能力来辨别地址和常数。</p>
+<h1 id="一种存储器抽象：地址空间"><a href="#一种存储器抽象：地址空间" class="headerlink" title="一种存储器抽象：地址空间"></a>一种存储器抽象：地址空间</h1><p>  把物理地址暴露给进程会有几个主要的缺点：<br>  1.如果用户程序可以寻址内存的每个字节，它们可以很容易的破坏操作系统，从而使系统停止运行，即使只有一个用户进程运行的情况，这个问题也存在。<br>  2.这种模型想要运行多个程序是很困难的，在系统没有物理内存的情况下很难实现</p>
+<h2 id="地址空间的概念"><a href="#地址空间的概念" class="headerlink" title="地址空间的概念"></a>地址空间的概念</h2><p>  要使多个应用程序同时运行在内存中，必须要解决两个问题：保护和重定位。<br>  一种方式是用保护密钥标记内存块，并将执行过程的密钥与提取的每个存储字的密钥进行比较，但是这种方式只能解决破坏才做系统的问题，但是不能解决多进程在内存中同时运行的问题。<br>  还有一种方式是创造一个存储器抽象：地址空间。就像进程的概念创建了一种抽象的CPU来运行程序，地址空间也创建了一种抽象内存供程序使用。地址空间是进程可以用来寻址内存的地址集。</p>
+<h3 id="基址寄存器和变址寄存器"><a href="#基址寄存器和变址寄存器" class="headerlink" title="基址寄存器和变址寄存器"></a>基址寄存器和变址寄存器</h3><p>  最简单分方法是使用动态重定位技术，通过一种简单的方式将每个进程的地址空间映射到物理内存的不同区域。经典办法是给每个CPU配置两个特殊的硬件寄出器，通常叫做基址寄存器和变址寄存器。<br>  基址寄存器：存储数据内存的起始地址<br>  变址寄存器：存储应用程序的长度<br>  每当进程引用内存以获取指令读取、写入数据时，CPU都会自动将进程添加到进程生成的地址中，然后发送到内存总线上。同时检查程序提供的地址是否大于或等于变址寄存器中的值。但是这种方式的缺点就是，每次访问内存都会进行ADD和CMP运算，CMP运算可以执行的很快，但是加法就会相对慢一点，除非使用特殊的加法电路，否则加法因进位传播时间而变慢。</p>
+<h2 id="交换技术"><a href="#交换技术" class="headerlink" title="交换技术"></a>交换技术</h2><p>  如果计算机的物理内存足够大来容纳所有的进程，那么之前提及的方案或多或少是可行的，但是实际上，所有进程需要的RAM总容量要远远高于内存的容量。所以针对上面内存不足的问题，有两种处理方式：<br>  1.交换技术：把一个进程完整的调入内存，然后在内存中运行一段时间，再把它放回磁盘。空闲进程会存储在磁盘中，所以这些进程在没有运行时不会占用太多内存<br>  2.虚拟内存：虚拟内存技术允许应用程序部分运行在内存中。</p>
+<h3 id="交换过程"><a href="#交换过程" class="headerlink" title="交换过程"></a>交换过程</h3><p> 交换在内存中常见了多个空闲区，内存会把所有的空闲区尽可能的向下移动合并成为一个大的空闲区，这项技术称为内存紧缩，但是这项技术通常不会使用，因为消耗很多的CPU时间。<br> 有一个值得注意的问题是，当进程被创建或者换入内存时应该为它分配多大的内存，如果进程被创建后它的大小是固定的并且不再改变，操作系统会准确的按其需要的大小进行分配。但是如果进程的data segment能够自动增长（通过动态分配堆中的内存），肯定会出问题<br> 从逻辑层面操作系统会把数据分成不同的段来存储：<br> 代码段：又称为文本段，用来存放指令，运行代码的一块内存空间。此空间大小在代码运行前就已经确定，内存空间一般只属于只读，某些架构的代码也允许可写，在代码段中也可能包含一些只读的常数变量。<br> 数据段：可读可写，存储初始化的全局变量和初始化的static变量，数据段中的数据的生存期是随程序持续性（随进程持续性）：进程创建就存在，进程死亡就消失。<br> bss段：可读可写，存储未初始化的全局变量和未初始化的static变量，bss段中数据的生存期随进程持续性，bss段中的数据一般默认为0<br> rodata段：只读数据，比如printf语句中的格式字符串和开关语句的跳转表，也及时常量区。<br> 栈：可读可写，存储的函数或代码中的局部变量，栈的生存期随代码持续性，代码块运行就给你分配空间，代码结束就自动收回空间。<br> 堆：可读可写，存储的是程序运行期间动态分配的malloc/realloc的空间，堆的生存期随进程持续性，从malloc/realloc到free一直存在。<br> 段定义是用来区分或者划分区域的意思。汇编语言中的segment伪指令表示段定义的起始，ends伪指令表示段定义的结束，段定义是一段连续的内存空间。<br> 所以内存针对自动增长的区域，会有三种处理方式：<br> 1.如果一个进程和空闲区域相邻，那么可把该空闲区分配费进程以供其增大<br> 2.如果进程相邻的是另一个进程，就会有两种处理方式：要么把需要增长的进程移动到一个内存中空闲区足够打的区域，要么把一个或多个进程交换出去，以便生成一个打的空闲区<br> 3.如果一个进程在内存中不能增长，而且磁盘上的交换区也满了，那么这个进程只有挂起一些空闲空间（或者可以结束该进程）。<br> 上面只针对单一或者一小部分需要增长的进程采用的方式，如果大部分进程都要在运行时增长，可以在换入或移动进程时为它分配一些额外的内存。，然而当进程被换出磁盘上时，应该只交换实际上使用的内存，将额外的内存交换也是一种浪费。<br> 如果进程有两个可增长的段，供变量动态分配和释放的作为堆使用一个数据段，以及存放局部变量与返回地址的一个堆栈段，进程的堆栈段在进程所占的顶端向下增长，紧接着在程序段后的数据段向上增长。</p>
+<h3 id="空闲内存管理"><a href="#空闲内存管理" class="headerlink" title="空闲内存管理"></a>空闲内存管理</h3><p>  在进行内存动态分配时，操作系统必须对其进行管理，有两种监控内存使用的方式：<br>  位图<br>  空闲列表</p>
+<h4 id="位图"><a href="#位图" class="headerlink" title="位图"></a>位图</h4><p>  使用位图方法时，内存可能被划分为小到几个字或大到几千字节的分配单元。每个分配单元对应位图的一位。<br>  位图提供了一种在固定大小的内存中跟踪内存的使用情况，因为位图的大小取决于内存和分配单元的大小。这种方法有一个问题是，当决定把具有k个分配单元的进程放入内存时，内存管理器必须搜索位图，在位图中找到能够运行k个连续0位的串，这回消耗大量的时间。</p>
+<h4 id="使用链表进行管理"><a href="#使用链表进行管理" class="headerlink" title="使用链表进行管理"></a>使用链表进行管理</h4><p>  维护一个记录已分配内存段和空闲内存段的链表，段会包含进程或者两个进程的空闲区域。链表中的每一项都可以代表一个空闲区或者是进程的起始标志，长度和下一个链表项的位置。<br>  当按照地址顺序在链表中存放进程和空闲区时，假设内存管理器知道应该分配多少内存，最简单的算法是使用首次适配，内存管理器会沿着段列表进行扫描，直到找到一个足够大的空闲区为止，除非空闲区大小和要分配的空间大小一样，否则将空闲区分为两部分，一部分供进程使用，一部分生成新的空闲区。<br>  首次适配的一个变体是下次适配，和首次适配工作方式相同，只有一个不同之处就是下次适配在每次找到合适的空闲区时会记录当时的位置，以便下次寻找空闲区时从上次结束的地方开始搜索。性能略低于首次适配算法。<br>  广泛使用的算法是最佳适配，从头到尾寻找整个链表，找出能够容纳进程的最小空闲区。最佳适配会试图找出最接近实际需要的空闲区，以最好的匹配请求和可用空闲区，而不是先一次拆分一个以后可能会用到的打的空闲区。最佳适配算法的性能要比首次适配差，而且会产生大量无用的小缓冲区。<br>  为了避免空闲区会分裂出很多非常小的缓冲区，可以采用最差适配算法，即总是分配最大的内存区域。是新分配的空闲区比较大从而可以继续使用。<br>  快速适配算法，为那些常用大小的空闲区维护单独的链表。寻找一个指定代销的空闲区也是十分快速的，但是在一个进程终止或被换出时，寻找它的相邻块并查看是否可以合并的过程都是非常耗时的。</p>
+<h1 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h1><p>  尽管基址寄存器和变址寄存器用来创建地址空间的抽象，但是这有一个问题需要解决：管理软件的不断增大。<br>  虚拟内存：每个程序都有自己的地址空间，这个地址空间被划分为多个称为页面的块。每一个都是连续的地址范围。这些页被映射到物理内存，但不是所有的页都必须在内存中才能运行程序。当程序引用到一部分在物理内存中的地址空间时，硬件会立刻执行必要的映射。当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的命令。<br>  虚拟地址是对基址寄存器和变址寄存器的一种概述。<br>  可以将整个地址空间已很小的单位映射到物理内存中而不是仅仅针对text和data区进行重定位。</p>
+<p>  假设有一个16位地址的计算机，地址从0-64K-1，这些事虚拟地址，然而只有32K的物理地址。</p>
+<h2 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h2><p>  大部分虚拟内存系统都会使用一种分页技术。在使用虚拟内存时，虚拟地址不会直接发送到内存总线上。相反会使用MMU内存管理单元吧虚拟地址映射为物理内存地址。</p>
+<h3 id="存在映射的页如何映射"><a href="#存在映射的页如何映射" class="headerlink" title="存在映射的页如何映射"></a>存在映射的页如何映射</h3><p>  虚拟地址空间由固定大小的单元组成，这种固定大小的单元称为页。而相对的，物理内存中也有固定大小的物理单元，称为页框。页和页框的大小一样。</p>
+<h3 id="未映射的页如何映射"><a href="#未映射的页如何映射" class="headerlink" title="未映射的页如何映射"></a>未映射的页如何映射</h3><p>  当程序访问一个未映射的页面时，MMU注意到该页面未被映射，于是CPU会陷入到操作系统中；这个陷入称为缺页中断或者缺页错误。操作系统会选择一个很少使用的页并把它的内容写入磁盘。随后把需要访问的页面读到刚才回收的页框中，修改映射关系，然后重新启动引起陷入的指令。</p>
+<h2 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h2><p>  可用页号作为页表的索引，以得出对应于该虚拟页面的页框号。<br>  每个页表项包含一个四bit的数据，高三位表示对应页框号，低位表示该项是否被映射。<br>  虚拟地址到物理地址的映射可以总结为：虚拟地址被分为虚拟页号高位部分和偏移量。对于16位地址和4KB的页面大小，高四位可以指定16个虚拟页面中的一页，低12位接着确定了所选页面的偏移量。</p>
+<h3 id="页表项的结构"><a href="#页表项的结构" class="headerlink" title="页表项的结构"></a>页表项的结构</h3><p><img src="/2020/10/27/%E5%86%85%E5%AD%98/20210318191311.png" alt="20210318191311"><br>  不同计算机的页表项可能不同，但是一般来说都是32位的。页表项中最重要的字段就是页框号。然后就是在/不在位，如果此位为1，那么页表项是有效的并且能够被使用。为0，则表示该页表项对应的虚拟页面不在内存中，访问页面会引起一个缺页异常。<br>  保护位：0表示可读可写，1表示只读<br>  修改位和访问位会跟踪页面的使用情况。当一个页面被写入时，硬件会自动的设置修改位。<br>  访问位在页面被访问时被设置，不管是读还是写。<br>  高速缓冲禁止位，对于映射到设备寄存器还是内存起到了关键作用。具有独立的I/O空间而不是用内存映射I/O的机器来说，并不需要这意味。</p>
+<h2 id="加速分页过程"><a href="#加速分页过程" class="headerlink" title="加速分页过程"></a>加速分页过程</h2>
       
       
         <div class="page-reward">
@@ -359,13 +381,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/">关于提升仿动态图显示速度的一点想法</a></p>
+        <p><span>本文标题:</span><a href="/2020/10/27/%E5%86%85%E5%AD%98/">内存</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 闲客 的个人博客">闲客</a></p>
-        <p><span>发布时间:</span>2019年06月27日 - 17时18分</p>
-        <p><span>最后更新:</span>2020年10月16日 - 20时37分</p>
+        <p><span>发布时间:</span>2020年10月27日 - 18时04分</p>
+        <p><span>最后更新:</span>2021年03月18日 - 19时19分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/" title="关于提升仿动态图显示速度的一点想法">http://xianke5200.github.io/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://xianke5200.github.io/2019/06/27/%E5%85%B3%E4%BA%8E%E6%8F%90%E5%8D%87%E4%BB%BF%E5%8A%A8%E6%80%81%E5%9B%BE%E6%98%BE%E7%A4%BA%E9%80%9F%E5%BA%A6%E7%9A%84%E4%B8%80%E7%82%B9%E6%83%B3%E6%B3%95/　　作者: 闲客" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/10/27/%E5%86%85%E5%AD%98/" title="内存">http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://xianke5200.github.io/2020/10/27/%E5%86%85%E5%AD%98/　　作者: 闲客" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -378,18 +400,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          4412学习笔记
+          realtek8762C BLE uart调试
         
       </div>
     </a>
   
   
-    <a href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">软件QSPI调试</div>
+    <a href="/2020/10/27/%E8%AE%A4%E8%AF%86%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">认识操作系统</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -400,7 +422,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%97%A0%E5%AD%98%E5%82%A8%E5%99%A8%E6%8A%BD%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">无存储器抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E5%A4%9A%E4%B8%AA%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">运行多个程序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E7%A7%8D%E5%AD%98%E5%82%A8%E5%99%A8%E6%8A%BD%E8%B1%A1%EF%BC%9A%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4"><span class="toc-number">2.</span> <span class="toc-text">一种存储器抽象：地址空间</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">地址空间的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8%E5%92%8C%E5%8F%98%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.1.1.</span> <span class="toc-text">基址寄存器和变址寄存器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="toc-number">2.2.</span> <span class="toc-text">交换技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">交换过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B2%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">2.2.2.</span> <span class="toc-text">空闲内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%8D%E5%9B%BE"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">位图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%93%BE%E8%A1%A8%E8%BF%9B%E8%A1%8C%E7%AE%A1%E7%90%86"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">使用链表进行管理</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-number">3.</span> <span class="toc-text">虚拟内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5"><span class="toc-number">3.1.</span> <span class="toc-text">分页</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%9C%A8%E6%98%A0%E5%B0%84%E7%9A%84%E9%A1%B5%E5%A6%82%E4%BD%95%E6%98%A0%E5%B0%84"><span class="toc-number">3.1.1.</span> <span class="toc-text">存在映射的页如何映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E6%98%A0%E5%B0%84%E7%9A%84%E9%A1%B5%E5%A6%82%E4%BD%95%E6%98%A0%E5%B0%84"><span class="toc-number">3.1.2.</span> <span class="toc-text">未映射的页如何映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8"><span class="toc-number">3.2.</span> <span class="toc-text">页表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E9%A1%B9%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">3.2.1.</span> <span class="toc-text">页表项的结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E5%88%86%E9%A1%B5%E8%BF%87%E7%A8%8B"><span class="toc-number">3.3.</span> <span class="toc-text">加速分页过程</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -451,13 +473,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/07/05/4412%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="上一篇: 4412学习笔记">
+            <a href="/2020/11/03/realtek8762C-BLE-uart%E8%B0%83%E8%AF%95/" title="上一篇: realtek8762C BLE uart调试">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2019/05/20/%E8%BD%AF%E4%BB%B6QSPI%E8%B0%83%E8%AF%95/" title="下一篇: 软件QSPI调试">
+            <a href="/2020/10/27/%E8%AE%A4%E8%AF%86%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="下一篇: 认识操作系统">
                 <i class="fa fa-angle-right"></i>
             </a>
         
