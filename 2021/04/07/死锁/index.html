@@ -14,9 +14,9 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/20210407200407.jpg">
 <meta property="og:image" content="http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/20210407200414.jpg">
-<meta property="og:image" content="http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/20210407200419_2.jpg">
+<meta property="og:image" content="http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/20210407200419.jpg">
 <meta property="article:published_time" content="2021-04-07T08:30:30.000Z">
-<meta property="article:modified_time" content="2021-04-07T12:07:13.079Z">
+<meta property="article:modified_time" content="2021-04-09T13:11:53.582Z">
 <meta property="article:author" content="xianke5200">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/20210407200407.jpg">
@@ -316,7 +316,7 @@
 <h2 id="死锁模型"><a href="#死锁模型" class="headerlink" title="死锁模型"></a>死锁模型</h2><p>  有四种处理思索的策略：<br>  1.忽略死锁带来的影响<br>  2.检测死锁并回复死锁，死锁发生时对其进行检测，一旦发生死锁后，采取行动解决问题<br>  3.通过仔细分配资源来避免死锁<br>  4.通过破坏死锁产生的四个条件之一来避免死锁</p>
 <h1 id="鸵鸟算法"><a href="#鸵鸟算法" class="headerlink" title="鸵鸟算法"></a>鸵鸟算法</h1><p>  万事不管顺其自然。</p>
 <h1 id="死锁检测和恢复"><a href="#死锁检测和恢复" class="headerlink" title="死锁检测和恢复"></a>死锁检测和恢复</h1><h2 id="每种类型一个资源的死锁检测方式"><a href="#每种类型一个资源的死锁检测方式" class="headerlink" title="每种类型一个资源的死锁检测方式"></a>每种类型一个资源的死锁检测方式</h2><p>  构造一张资源表来检测这种错误。<br>  <img src="/2021/04/07/%E6%AD%BB%E9%94%81/20210407200414.jpg" alt="20210407200414"></p>
-<h2 id="每个类型多个资源的死锁检测方式"><a href="#每个类型多个资源的死锁检测方式" class="headerlink" title="每个类型多个资源的死锁检测方式"></a>每个类型多个资源的死锁检测方式</h2><p><img src="/2021/04/07/%E6%AD%BB%E9%94%81/20210407200419_2.jpg" alt="20210407200419"><br>  已分配资源j的数量加起来和所有可供使用的资源数相加 = 该类资源的总数<br>  思索的检测就是基于向量的比较，每个进程起初都是没有被标记过的，算法会开始对进程做标记，进程被标记后说明进程执行了，不会进入死锁，当算法结束时，任何被标记过的进程斗湖被判定为死锁进程。<br>  何时进行死锁检测，有两个考量标准：<br>  1.每当有资源请求时就去检测，这种方式会占用昂贵的时间。<br>  2.每个k分钟检测一次，或者当CPU使用率降低到某个标准下去检测。</p>
+<h2 id="每个类型多个资源的死锁检测方式"><a href="#每个类型多个资源的死锁检测方式" class="headerlink" title="每个类型多个资源的死锁检测方式"></a>每个类型多个资源的死锁检测方式</h2><p><img src="/2021/04/07/%E6%AD%BB%E9%94%81/20210407200419.jpg" alt="20210407200419"><br>  已分配资源j的数量加起来和所有可供使用的资源数相加 = 该类资源的总数<br>  思索的检测就是基于向量的比较，每个进程起初都是没有被标记过的，算法会开始对进程做标记，进程被标记后说明进程执行了，不会进入死锁，当算法结束时，任何被标记过的进程斗湖被判定为死锁进程。<br>  何时进行死锁检测，有两个考量标准：<br>  1.每当有资源请求时就去检测，这种方式会占用昂贵的时间。<br>  2.每个k分钟检测一次，或者当CPU使用率降低到某个标准下去检测。</p>
 <h2 id="从死锁中恢复"><a href="#从死锁中恢复" class="headerlink" title="从死锁中恢复"></a>从死锁中恢复</h2><h3 id="通过抢占进行恢复"><a href="#通过抢占进行恢复" class="headerlink" title="通过抢占进行恢复"></a>通过抢占进行恢复</h3><p>  在不通知原进程的情况下，将某个资源从进程中强制取走给其他进程使用，使用完后又送回。</p>
 <h3 id="通过回滚恢复"><a href="#通过回滚恢复" class="headerlink" title="通过回滚恢复"></a>通过回滚恢复</h3><p>  检测点不仅包含存储映像，还包含资源状态。<br>  不要覆盖原有的检测点，而是没出现一个检测点都要把它写入到文件中，这样当进程执行时，就会有一系列的检查点文件被累积起来。</p>
 <h3 id="杀死进程恢复"><a href="#杀死进程恢复" class="headerlink" title="杀死进程恢复"></a>杀死进程恢复</h3><p>  最简答的解决方案是直接杀死一个死锁进程。另外一种方式是选择一个环外的进程作为牺牲品来释放进程资源。</p>
@@ -387,7 +387,7 @@
         <p><span>本文标题:</span><a href="/2021/04/07/%E6%AD%BB%E9%94%81/">死锁</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 闲客 的个人博客">闲客</a></p>
         <p><span>发布时间:</span>2021年04月07日 - 16时30分</p>
-        <p><span>最后更新:</span>2021年04月07日 - 20时07分</p>
+        <p><span>最后更新:</span>2021年04月09日 - 21时11分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2021/04/07/%E6%AD%BB%E9%94%81/" title="死锁">http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/</a>
             <span class="copy-path" data-clipboard-text="原文: http://xianke5200.github.io/2021/04/07/%E6%AD%BB%E9%94%81/　　作者: 闲客" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
